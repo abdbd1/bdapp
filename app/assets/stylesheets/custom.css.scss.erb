@@ -1,11 +1,18 @@
 /* FONTS */
+@font-face { font-family: QuickSandBold; src: url("<%= asset_path('Quicksand-Bold.otf') %>"); }
 @font-face { font-family: QuickSandLight; src: url("<%= asset_path('Quicksand-Light.otf') %>"); }
+
+.quick-light {
+  font-family: QuickSandLight;
+}
+
+.quick-bold {
+  font-family: QuickSandBold;
+}
 /* FIN FONTS */
 
 /* application.html.erb */
-.form-row {
-  margin-bottom: 120px;
-}
+
 /* FIN application.html.erb */
 
 /* pages#home */
@@ -43,12 +50,50 @@
   color: white;
   text-decoration: none;
 }
-
-.quick-light {
-  font-family: QuickSandLight;
-}
 /* FIN pages#home */
 
 /* registrations#new */
+.form-row {
+  margin-bottom: 120px;
+}
 
+.registration-new {
+  background-image: asset-url('cellbloc.jpg');
+}
 /* FIN registrations#new */
+
+/* registrations#edit */
+.registration-edit {
+  background-image: asset-url('laptopbloc.jpg');
+}
+/* FIN registrations#edit */
+
+/* Shared */
+.background-transparent {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.error-row {
+  background-color: rgba(100, 0, 0, 0.5);
+  border: 1px solid red;
+  border-radius: 25px;
+  color: white;
+  margin-top: 20px;
+}
+
+.no-decoration, .no-decoration:hover {
+  text-decoration: none;
+}
+
+.top-ten {
+  margin-top: 10px;
+}
+
+.bottom-ten {
+  margin-bottom: 10px !important;
+}
+
+.white, .white:hover {
+  color: white;
+}
+/* FIN Shared */
