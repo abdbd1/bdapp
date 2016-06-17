@@ -27,23 +27,32 @@
         <div class="collapse" id="collapseExample">
             <% if !current_user.phones.empty? %>
               <% current_user.phones.each do |phone| %>
-                <p><%= "#{phone.type}: #{phone.number}" %></p>
+                <p>
+                  <%= "#{phone.type}: #{phone.number}" %> |
+                  <%= link_to 'Eliminar', {:controller => :users,
+                        :action => 'destroy_phone', :id => phone.id},
+                        :method => :delete,
+                        class: "red",
+                        data: {confirm: "¿Quieres eliminar ese número?"} %>
+                </p>
               <% end %>
             <% end %>
-            <p>Agregar Nuevo:</p>
-            <%= form_for @phone, :url => {:action => "create_phone"} do |f| %>
-              <div class="form-group">
-                <%= f.text_field :number, class: "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.radio_button :type, 'local', :checked => true %>
-                <%= f.label :type_local, 'Local' %>
-                <%= f.radio_button :type, 'movil' %>
-                <%= f.label :type_movil, 'Móvil' %>
-                <%= f.radio_button :type, 'trabajo' %>
-                <%= f.label :type_trabajo, 'Trabajo' %>
-              </div>
-              <%= f.submit "Agregar", class: 'btn btn-default' %>
+            <% if current_user.phones.count < 5 %>
+              <p>Agregar Nuevo:</p>
+              <%= form_for @phone, :url => {:action => "create_phone"} do |f| %>
+                <div class="form-group">
+                  <%= f.text_field :number, class: "form-control" %>
+                </div>
+                <div class="form-group">
+                  <%= f.radio_button :type, 'Local', :checked => true %>
+                  <%= f.label :type_local, 'Local' %>
+                  <%= f.radio_button :type, 'Móvil' %>
+                  <%= f.label :type_movil, 'Móvil' %>
+                  <%= f.radio_button :type, 'Trabajo' %>
+                  <%= f.label :type_trabajo, 'Trabajo' %>
+                </div>
+                <%= f.submit "Agregar", class: 'btn btn-default' %>
+              <% end %>
             <% end %>
         </div>
         <h4><%= link_to 'Editar Perfil', edit_user_registration_path, class: "white quick-regular" %></h4>

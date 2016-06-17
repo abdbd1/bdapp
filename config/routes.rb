@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   
   get 'perfil' => 'users#show'
-  post 'telefono_creado' => 'users#create_phone'
+  post 'create_phone' => 'users#create_phone'
+  delete 'delete_phone' => 'users#destroy_phone'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
