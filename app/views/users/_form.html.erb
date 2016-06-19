@@ -39,10 +39,27 @@
         <%= f.label :password_confirmation, 'Confirmar Contraseña', class: "white" %>
         <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
       </div>
+      
+      <% if current_user %>
+        <% if current_user.counter == 1 %>
+          <%= f.hidden_field :counter, :value => 2 %>
+          <%= f.hidden_field :type, :value => 'Administrador' %>
+        <% elsif current_user.counter == 2 %>
+          <%= f.hidden_field :counter, :value => 3 %>
+          <%= f.hidden_field :type, :value => 'Secundario' %>
+        <% end %>
+      <% else %>
+        <%= f.hidden_field :counter, :value => 1 %>
+        <%= f.hidden_field :type, :value => 'Principal' %>
+      <% end %>
     
       <div class="actions">
-        <%= f.submit(@user.new_record? ? "Registrarse" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>
-        <%= render "users/shared/links" %>
+        <% if current_user %>
+          <%= f.submit(@user.new_record? ? "Crear Usuario" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>
+        <% else %>
+          <%= f.submit(@user.new_record? ? "Registrarse" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>
+          <%= render "users/shared/links" %>
+        <% end %>
       </div>
     </div><!--col-xs-4-->
   <% end %>
