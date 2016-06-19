@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
+  belongs_to :parent, class_name: "User", foreign_key: "parent_id"
+  has_many :children, class_name: "User", foreign_key: "parent_id", dependent: :destroy
   has_many :phones, dependent: :destroy
   
   validates_presence_of :name, :surname
