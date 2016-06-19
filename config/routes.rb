@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+  namespace :securities do
+  get 'cards/new'
+  end
+
+  namespace :securities do
+  get 'cards/create'
+  end
+
+  namespace :securities do
+  get 'cards/show'
+  end
+
+  namespace :securities do
+  get 'cards/destroy'
+  end
+
   root 'pages#home'
   
   devise_for :users, controllers: { registrations: "users/registrations" }

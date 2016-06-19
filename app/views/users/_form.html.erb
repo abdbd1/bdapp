@@ -54,7 +54,9 @@
       <% end %>
     
       <div class="actions">
-        <% if current_user %>
+        <% if current_user and current_user.counter == 1 %>
+          <%= f.submit(@user.new_record? ? "Crear Administrador" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>
+        <% elsif current_user and current_user.counter == 2 %>
           <%= f.submit(@user.new_record? ? "Crear Usuario" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>
         <% else %>
           <%= f.submit(@user.new_record? ? "Registrarse" : "Actualizar Perfil", class: "btn btn-default bottom-ten") %>

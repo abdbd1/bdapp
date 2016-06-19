@@ -16,15 +16,15 @@
         <h4>Nombre: <%= current_user.name %></h4>
         <h4>Apellido: <%= current_user.surname %></h4>
         <h4>Correo: <%= current_user.email %></h4>
-        <a role="button" data-toggle="collapse" href="#collapseExample"
-           aria-expanded="false" aria-controls="collapseExample"
+        <a role="button" data-toggle="collapse" href="#collapsePhones"
+           aria-expanded="false" aria-controls="collapsePhones"
            class="no-decoration"
         >
           <h4 class="white quick-regular">
             Teléfonos:
           </h4>
         </a>
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="collapsePhones">
             <% if !current_user.phones.empty? %>
               <% current_user.phones.each do |phone| %>
                 <p>
@@ -62,6 +62,22 @@
         <h2 align="center">Detalles de Usuario</h2>
         <% if current_user.counter == 1 %>
           <h4>Cliente Principal</h4>
+          <h4>Tus Administradores:</h4>
+          <% current_user.children.each do |admin| %>
+            <a class="no-decoration quick-regular white" role="button"
+              data-toggle="collapse" href="#collapse<%= admin.id %>" 
+              aria-expanded="false" aria-controls="collapse<%= admin.id %>"
+            >
+              <h4><%= "#{admin.name} #{admin.surname}" %></h4>
+            </a>
+            <div class="collapse" id="collapse<%= admin.id %>">
+              <% i = 1 %>
+              <% admin.children.each do |secundario| %>
+                <p><%= "#{i}) #{secundario.name} #{secundario.surname}" %></p>
+                <% i += 1 %>
+              <% end %>
+            </div>
+          <% end %>
         <% elsif current_user.counter == 2 %>
           <h4>Administrador</h4>
         <% else %>

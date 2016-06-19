@@ -5,14 +5,20 @@
 
       <div class="row">
         <div class="col-xs-4 col-xs-offset-8">
-          <h4 class="registro quick-light"><%= link_to 'Registro', new_user_registration_path,
-                                      class: 'link-registro' %></h4>
+          <% unless current_user %>
+            <h4 class="registro quick-light">
+              <%= link_to 'Registro', new_user_registration_path,
+                  class: 'link-registro' %>
+            </h4>
+          <% end %>
         </div>
       </div><!--row-->
 
       <div class="row">
         <div class="col-xs-4">
-          <h4 class="quick-light"><%= link_to 'Iniciar Sesión', new_user_session_path, class: 'login' %></h4>
+          <% unless current_user %>
+            <h4 class="quick-light"><%= link_to 'Iniciar Sesión', new_user_session_path, class: 'login' %></h4>
+          <% end %>
         </div>
       </div><!--row-->
     </div><!--jumbotron-->
