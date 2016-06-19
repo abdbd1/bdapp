@@ -11,8 +11,13 @@ skip_before_action :require_no_authentication
   # POST /resource
   def create
     build_resource(sign_up_params)
-
+    
+    if current_user
+      resource.parent = current_user
+    end
+    
     resource.save
+    
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
@@ -59,12 +64,12 @@ skip_before_action :require_no_authentication
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname, :type, :counter])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname, :type, :counter, :user_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :surname, :type, :counter])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :surname])
   end
   
   #def after_sign_in_path_for(resource)
