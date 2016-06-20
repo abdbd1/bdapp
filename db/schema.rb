@@ -11,10 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619200042) do
+ActiveRecord::Schema.define(version: 20160619233413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "card_coors", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "card_id"
+    t.integer  "coordinate_id"
+  end
+
+  add_index "card_coors", ["card_id"], name: "index_card_coors_on_card_id", using: :btree
+  add_index "card_coors", ["coordinate_id"], name: "index_card_coors_on_coordinate_id", using: :btree
+
+  create_table "cards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "coordinates", force: :cascade do |t|
+    t.integer  "column"
+    t.integer  "row"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "phones", force: :cascade do |t|
     t.string   "number"
@@ -49,5 +72,7 @@ ActiveRecord::Schema.define(version: 20160619200042) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "card_coors", "cards"
+  add_foreign_key "card_coors", "coordinates"
   add_foreign_key "phones", "users"
 end

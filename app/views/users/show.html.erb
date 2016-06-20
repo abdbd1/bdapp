@@ -11,7 +11,7 @@
     </div>
     
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-1 show-left-col quick-regular white">
+      <div class="col-xs-4 col-xs-offset-1 left-col quick-regular white">
         <h2 align="center">Datos Personales</h2>
         <h4>Nombre: <%= current_user.name %></h4>
         <h4>Apellido: <%= current_user.surname %></h4>
@@ -58,7 +58,7 @@
         <h4><%= link_to 'Editar Perfil', edit_user_registration_path, class: "white quick-regular" %></h4>
       </div><!--col-xs-4 col-xs-offset-1 show-left-col quick-regular white-->
       
-      <div class="col-xs-4 col-xs-offset-2 show-right-col quick-regular white">
+      <div class="col-xs-4 col-xs-offset-2 right-col quick-regular white">
         <h2 align="center">Detalles de Usuario</h2>
         <% if current_user.counter == 1 %>
           <h4>Cliente Principal</h4>

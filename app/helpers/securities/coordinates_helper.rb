@@ -1,0 +1,2 @@
+module Securities::CoordinatesHelper
+end

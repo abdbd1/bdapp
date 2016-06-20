@@ -1,27 +1,17 @@
 Rails.application.routes.draw do
-  namespace :securities do
-  get 'cards/new'
-  end
-
-  namespace :securities do
-  get 'cards/create'
-  end
-
-  namespace :securities do
-  get 'cards/show'
-  end
-
-  namespace :securities do
-  get 'cards/destroy'
-  end
-
   root 'pages#home'
   
   devise_for :users, controllers: { registrations: "users/registrations" }
   
-  get 'perfil' => 'users#show'
+  get 'profile' => 'users#show'
   post 'create_phone' => 'users#create_phone'
   delete 'delete_phone' => 'users#destroy_phone'
+  
+  get 'security' => 'securities#index'
+  namespace :securities do
+    get 'card' => 'cards#show'
+    post 'create_coordinate' => 'coordinates#create'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

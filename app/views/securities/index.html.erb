@@ -1,0 +1,32 @@
+<div class="row security-index">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-light white">
+            Tu Seguridad es importante para nosotros.
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <div class="row">
+      <div class="col-xs-5 col-xs-offset-6 right-col quick-regular white">
+        <h2 align="center">
+          Gestione sus Claves
+        </h2>
+        <h3><%= link_to 'Preguntas Secretas', '#', class: "no-decoration" %></h3>
+        <%= form_for @coordinate, :url => {:controller => "securities/coordinates",
+                     :action => "create"} do |f| %>
+          <%= f.hidden_field :column, :value => 1 %>
+          <%= f.hidden_field :row, :value => 1 %>
+          <%= f.hidden_field :value, :value => set_value %>
+          <h3><%= f.submit 'Tarjeta de Coordenadas', class: "no-decoration submit-link", role: "link" %></h3>
+        <% end %>
+        <h4>
+          (Para cambiar su clave de Internet, por favor vaya a su cuenta y elija la opción de editar perfil)
+        </h4>
+      </div>
+    </div><!--row-->
+  </div><!--col-xs-12-->
+</div><!--row security-index-->
