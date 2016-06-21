@@ -26,7 +26,57 @@
         <h4>
           (Para cambiar su clave de Internet, por favor vaya a su cuenta y elija la opción de editar perfil)
         </h4>
-      </div>
+      </div><!--col-xs-5 col-xs-offset-6 right-col quick-regular white-->
     </div><!--row-->
+    
+    <% if current_user.card %>
+      <div class="row card-row">
+        <div class="col-xs-5 col-xs-offset-6 right-col quick-regular white">
+          <h2 align="center">Su Tarjeta de Coordenadas</h2>
+          <%# current_user.card.card_coors.each do |cardcoor| %>
+            <p><%#= "Fila: #{cardcoor.coordinate.row}, Columna: #{cardcoor.coordinate.column}, Valor: #{cardcoor.coordinate.value}" %></p>
+          <%# end %>
+          <table class="table table-bordered card-table">
+            <tr>
+              <td> </td>
+              <td>0</td>
+              <td>1</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>0</td>
+              <% i = 0 %>
+              <% current_user.card.card_coors.each do |cardcoor| %>
+                <% if i < 3 %>
+                  <!--<td><%#= "#{cardcoor.coordinate.value} #{cardcoor.coordinate.column} #{cardcoor.coordinate.row}" %></td>-->
+                  <td><%= cardcoor.coordinate.value %></td>
+                <% end %>
+                <% i += 1 %>
+              <% end %>
+            </tr>
+            <tr>
+              <td>1</td>
+              <% i = 0 %>
+              <% current_user.card.card_coors.each do |cardcoor| %>
+                <% if i > 2 and i < 6 %>
+                  <td><%= cardcoor.coordinate.value %></td>
+                <% end %>
+                <% i += 1 %>
+              <% end %>
+            </tr>
+            <tr>
+              <td>2</td>
+              <% i = 0 %>
+              <% current_user.card.card_coors.each do |cardcoor| %>
+                <% if i > 5 %>
+                  <td><%= cardcoor.coordinate.value %></td>
+                <% end %>
+                <% i += 1 %>
+              <% end %>
+            </tr>
+          </table>
+        </div>
+      </div><!--row-->
+    <% end %>
   </div><!--col-xs-12-->
 </div><!--row security-index-->

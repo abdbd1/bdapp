@@ -29,13 +29,13 @@ class Securities::CoordinatesController < ApplicationController
     
     @coordinates = []
     @coordinates << Coordinate.new(column: 0, row: 0, value: set_value)
-    @coordinates << Coordinate.new(column: 0, row: 1, value: set_value)
-    @coordinates << Coordinate.new(column: 0, row: 2, value: set_value)
     @coordinates << Coordinate.new(column: 1, row: 0, value: set_value)
-    @coordinates << Coordinate.new(column: 1, row: 1, value: set_value)
-    @coordinates << Coordinate.new(column: 1, row: 2, value: set_value)
     @coordinates << Coordinate.new(column: 2, row: 0, value: set_value)
+    @coordinates << Coordinate.new(column: 0, row: 1, value: set_value)
+    @coordinates << Coordinate.new(column: 1, row: 1, value: set_value)
     @coordinates << Coordinate.new(column: 2, row: 1, value: set_value)
+    @coordinates << Coordinate.new(column: 0, row: 2, value: set_value)
+    @coordinates << Coordinate.new(column: 1, row: 2, value: set_value)
     @coordinates << Coordinate.new(column: 2, row: 2, value: set_value)
     
     for i in 0..8
