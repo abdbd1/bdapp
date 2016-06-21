@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     
     if @phone.save
       flash[:success] = "¡Número Agregado!"
-      redirect_to perfil_path
+      redirect_to profile_path
     else
       render 'show'
     end
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def destroy_phone
     Phone.find(params[:id]).destroy
     flash[:warning] = "Número Eliminado"
-    redirect_to perfil_path
+    redirect_to profile_path
   end
   
   private

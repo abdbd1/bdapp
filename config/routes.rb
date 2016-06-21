@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'security' => 'securities#index'
   namespace :securities do
     get 'card' => 'cards#show'
+    #get 'create_coordinate' => 'coordinates#create'
     post 'create_coordinate' => 'coordinates#create'
   end
 
