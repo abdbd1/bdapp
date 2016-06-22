@@ -16,12 +16,16 @@
           Gestione sus Claves
         </h2>
         <h3><%= link_to 'Preguntas Secretas', '#', class: "no-decoration" %></h3>
-        <%= form_for @coordinate, :url => {:controller => "securities/coordinates",
-                     :action => "create"} do |f| %>
-          <%= f.hidden_field :column, :value => 1 %>
-          <%= f.hidden_field :row, :value => 1 %>
-          <%= f.hidden_field :value, :value => set_value %>
-          <h3><%= f.submit 'Tarjeta de Coordenadas', class: "no-decoration submit-link", role: "link" %></h3>
+        <% if current_user.card %>
+          <h3>
+            Tarjeta de Coordenadas
+            <small> | Eliminar</small>
+          </h3>
+        <% else %>
+          <%= form_for @coordinate, :url => {:controller => "securities/coordinates",
+                       :action => "create"} do |f| %>
+            <h3><%= f.submit 'Tarjeta de Coordenadas', class: "no-decoration submit-link", role: "link" %></h3>
+          <% end %>
         <% end %>
         <h4>
           (Para cambiar su clave de Internet, por favor vaya a su cuenta y elija la opción de editar perfil)
@@ -49,7 +53,7 @@
               <% current_user.card.card_coors.each do |cardcoor| %>
                 <% if i < 3 %>
                   <!--<td><%#= "#{cardcoor.coordinate.value} #{cardcoor.coordinate.column} #{cardcoor.coordinate.row}" %></td>-->
-                  <td><%= cardcoor.coordinate.value %></td>
+                  <td><%= cardcoor.coordinate.value.upcase %></td>
                 <% end %>
                 <% i += 1 %>
               <% end %>
@@ -59,7 +63,7 @@
               <% i = 0 %>
               <% current_user.card.card_coors.each do |cardcoor| %>
                 <% if i > 2 and i < 6 %>
-                  <td><%= cardcoor.coordinate.value %></td>
+                  <td><%= cardcoor.coordinate.value.upcase %></td>
                 <% end %>
                 <% i += 1 %>
               <% end %>
@@ -69,12 +73,13 @@
               <% i = 0 %>
               <% current_user.card.card_coors.each do |cardcoor| %>
                 <% if i > 5 %>
-                  <td><%= cardcoor.coordinate.value %></td>
+                  <td><%= cardcoor.coordinate.value.upcase %></td>
                 <% end %>
                 <% i += 1 %>
               <% end %>
             </tr>
           </table>
+          <h6 align="center">La información contenida en esta página es confidencial.</h6>
         </div>
       </div><!--row-->
     <% end %>
