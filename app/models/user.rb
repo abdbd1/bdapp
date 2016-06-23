@@ -9,16 +9,8 @@ class User < ActiveRecord::Base
   has_many :children, class_name: "User", foreign_key: "parent_id", dependent: :destroy
   has_many :phones, dependent: :destroy
   has_one :card, dependent: :destroy
+  has_many :user_ques
+  has_many :questions, through: :user_ques
   
   validates_presence_of :name, :surname
-  
-  #def descendants
-  #  children.map do |child|
-  #    [child] + child.descendents
-  #  end.flatten
-  #end
-
-  #def self_and_descendants
-  #  [self] + descendants
-  #end
 end

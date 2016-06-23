@@ -8,10 +8,16 @@ Rails.application.routes.draw do
   delete 'delete_phone' => 'users#destroy_phone'
   
   get 'security' => 'securities#index'
+  
   namespace :securities do
     get 'card' => 'cards#show'
-    #get 'create_coordinate' => 'coordinates#create'
     post 'create_coordinate' => 'coordinates#create'
+    
+    get 'questions' => 'questions#index'
+    
+    get 'new_answers' => 'user_ques#new'
+    post 'answers' => 'user_ques#create'
+    get 'edit_answers' => 'user_ques#edit'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

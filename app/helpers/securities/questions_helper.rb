@@ -1,0 +1,2 @@
+module Securities::QuestionsHelper
+end
