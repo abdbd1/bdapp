@@ -1,0 +1,30 @@
+<div class="row question-index">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-regular white">
+            Aquí están sus preguntas y respuestas.
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <div class="row background-transparent-dark quick-regular white">
+      <div class="col-xs-8 col-xs-offset-2">
+        <% @answers.each do |answer| %>
+          <h3><%= answer.question.question %></h3>
+          <h4><%= answer.answer %></h4>
+        <% end %>
+        
+        <h4 align="right"><%= link_to 'Editar Respuestas', securities_edit_answers_path, class: "quick-regular white" %></h4>
+      </div>
+    </div><!--row background-transparent-dark quick-regular white-->
+    
+    <div class="row">
+      <div class="col-xs-4">
+        
+      </div>
+    </div><!--row quick-regular white-->
+  </div>
+</div><!--row question-index-->

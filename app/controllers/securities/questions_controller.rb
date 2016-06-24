@@ -1,5 +1,5 @@
 class Securities::QuestionsController < ApplicationController
   def index
-    @questions = Question.all
+    @answers = current_user.user_ques
   end
 end
