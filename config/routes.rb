@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     post 'answers' => 'user_ques#create'
     get 'edit_answers' => 'user_ques#edit'
   end
+  
+  resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

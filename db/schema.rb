@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160622232110) do
+ActiveRecord::Schema.define(version: 20160624014610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 20160622232110) do
   end
 
   add_index "phones", ["user_id"], name: "index_phones_on_user_id", using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.string   "nombre"
+    t.date     "vigencia"
+    t.date     "emision"
+    t.string   "tipo"
+    t.integer  "saldo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "questions", force: :cascade do |t|
     t.string   "question"
