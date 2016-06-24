@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_one :card, dependent: :destroy
   has_many :user_ques
   has_many :questions, through: :user_ques
+  has_many :products
   
   validates_presence_of :name, :surname
 end

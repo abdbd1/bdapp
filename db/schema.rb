@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624014610) do
+ActiveRecord::Schema.define(version: 20160624181923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,7 +60,10 @@ ActiveRecord::Schema.define(version: 20160624014610) do
     t.integer  "saldo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.string   "question"
@@ -106,6 +109,7 @@ ActiveRecord::Schema.define(version: 20160624014610) do
   add_foreign_key "card_coors", "coordinates"
   add_foreign_key "cards", "users"
   add_foreign_key "phones", "users"
+  add_foreign_key "products", "users"
   add_foreign_key "user_ques", "questions"
   add_foreign_key "user_ques", "users"
 end

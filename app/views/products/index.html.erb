@@ -11,8 +11,28 @@
     </div><!--row-->
     
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-1 products-col">
-        <h3><%= link_to "Crear nuevo Producto", new_product_path, class: "no-decoration quick-regular white" %></h3>
+      <div class="col-xs-5 col-xs-offset-1 products-col quick-regular white">
+        <% if current_user.counter < 3 %>
+          <h2 align="center">Tus Productos</h2>
+          <% @products.each do |product| %>
+            <h3><%= product.nombre %></h3>
+          <% end %>
+        <% end %>
+        <% if current_user.counter == 3 %>
+          <h2 align="center">Los Productos del Cliente</h2>
+          <% current_user.parent.parent.products.each do |product| %>
+            <h3><%= product.nombre %></h3>
+          <% end %>
+        <% end %>
+        <% if current_user.counter > 1 %>
+          <h2 align="center">Los Productos de tu creador</h2>
+          <% current_user.parent.products.each do |product| %>
+            <h3><%= product.nombre %></h3>
+          <% end %>
+        <% end %>
+        <% if current_user.counter < 3 %>
+          <h3 align="right"><%= link_to "Crear nuevo Producto", new_product_path, class: "no-decoration quick-regular white" %></h3>
+        <% end %>
       </div>
     </div><!--row-->
   </div><!--col-xs-12-->
