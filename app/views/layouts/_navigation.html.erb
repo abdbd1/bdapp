@@ -7,6 +7,7 @@
       <% if current_user %>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-user") + ' Mi Perfil', profile_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-credit-card") + ' Mis Productos', products_path) %></li>
+        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-check") + ' Roles', roles_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-lock") + ' Seguridad', security_path) %></li>
       <% end %>
     </ul>

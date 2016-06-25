@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :user_ques
   has_many :questions, through: :user_ques
   has_many :products
+  has_many :user_roles
+  has_many :roles, through: :user_roles
   
   validates_presence_of :name, :surname
 end

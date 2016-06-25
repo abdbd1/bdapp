@@ -1,0 +1,64 @@
+<div class="row role-allocation">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-regular white">
+            Asigna los Roles que quieras. <small class="white">A quien quieras</small>
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <%= form_tag("/allocate", method: "put") do %>
+      <% i = 0 %>
+      <div class="row quick-regular white">
+        <div class="col-xs-4 col-xs-offset-1">
+          <% if current_user.counter == 1 %>
+            <h2 align="center">Tus Administradores</h2>
+            <% current_user.children.each do |admin| %>
+              <h3>
+                <%= check_box_tag("user" + admin.id.to_s, admin.id) %>
+                <%= label_tag("user" + admin.id.to_s, "#{admin.name} #{admin.surname}") %>
+                <small class="white"> Sus usuarios:</small>
+              </h3>
+              <% i += 1 %>
+              <% admin.children.each do |usuario| %>
+                <h4>
+                  <%= check_box_tag("user" + usuario.id.to_s, usuario.id) %>
+                  <%= label_tag("user" + usuario.id.to_s, "#{usuario.name} #{usuario.surname}") %>
+                </h4>
+                <% i += 1 %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <h2 align="center">Tus Usuarios</h2>
+            <% current_user.children.each do |usuario| %>
+              <h3>
+                <%= check_box_tag("user" + usuario.id.to_s, usuario.id) %>
+                <%= label_tag("user" + usuario.id.to_s, "#{usuario.name} #{usuario.surname}") %>
+              </h3>
+              <% i += 1 %>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <div class="col-xs-4 col-xs-offset-2">
+          <h2 align="center">Los Roles</h2>
+          <% @roles.each do |rol| %>
+            <h3>
+              <%= check_box_tag("rol" + rol.id.to_s, rol.id) %>
+              <%= label_tag("rol" + rol.id.to_s, rol.nombre) %>
+            </h3>
+          <% end %>
+        </div>
+      </div><!--row quick-regular white-->
+    
+      <div class="row">
+        <div class="col-xs-2 col-xs-offset-5">
+          <%= submit_tag "Asignar", class: "btn btn-default" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="row form-row background-transparent">
+  <%= form_for @role do |f| %>
+    <div class="col-xs-4">
+      <% if @role.errors.any? %>
+        <div class="row error-row">
+          <div class="col-xs-12">
+            <%= render 'shared/errors', obj: @role %>
+          </div><!--col-xs-12-->
+        </div><!--row-->
+      <% end %>
+    </div>
+    
+    <div class="col-xs-4 white">
+      <div class="form-group">
+        <%= f.label :nombre, 'Nombre', class: "top-ten white" %>
+        <%= f.text_field :nombre, autofocus: true, class: "form-control", placeholder: "Ej. Transferencias Bancarias" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :descripcion, 'Descripción del Rol' %>
+        <%= f.text_area :descripcion, class: "form-control text-area" %>
+      </div>
+      
+      <div class="actions">
+        <%= f.submit(@role.new_record? ? "Agregar" : "Actualizar", class: "btn btn-default bottom-ten") %>
+      </div>
+    </div><!--col-xs-4 white-->
+  <% end %>
+</div>

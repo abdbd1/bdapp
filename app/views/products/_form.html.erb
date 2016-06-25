@@ -1,10 +1,10 @@
-<div class="row form-row background-transparent ">
+<div class="row form-row background-transparent">
   <%= form_for @product do |f| %>
     <div class="col-xs-4">
       <% if @product.errors.any? %>
         <div class="row error-row">
           <div class="col-xs-12">
-            <%= render 'shared/errors', obj: @user %>
+            <%= render 'shared/errors', obj: @product %>
           </div><!--col-xs-12-->
         </div><!--row-->
       <% end %>
