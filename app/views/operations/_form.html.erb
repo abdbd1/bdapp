@@ -1,5 +1,5 @@
 <div class="row form-row background-transparent">
-  <%= form_for @role do |f| %>
+  <%= form_for @operation do |f| %>
     <div class="col-xs-4">
       <% if @operation.errors.any? %>
         <div class="row error-row">
@@ -18,35 +18,38 @@
       
       <div class="form-group">
         <%= f.label :nombre, 'Nombre', class: "white" %>
-        <%= f.text_field :nombre class: "form-control" %>
+        <%= f.text_field :nombre, class: "form-control" %>
       </div>
       
       <div class="form-group">
         <%= f.label :montomax, 'Monto Máximo Admitido', class: "white" %>
-        <%= f.number_field :montomax class: "form-control" %>
+        <%= f.number_field :montomax, class: "form-control" %>
       </div>
       
       <div class="form-group">
         <%= f.label :montomin, 'Monto Mínimo Admitido', class: "white" %>
-        <%= f.number_field :montomin class: "form-control" %>
+        <%= f.number_field :montomin, class: "form-control" %>
       </div>
       
       <div class="form-group">
-        <%= f.label :tipo, 'Monto Mínimo Admitido', class: "white" %>
-        <%= f.number_field :tipo class: "form-control" %>
+        <%= f.label :tipo, 'Tipo de Operación', class: "white" %>
+        <%= f.text_field :tipo, class: "form-control" %>
       </div>
       
       <div class="form-group">
-        <%= f.check_box :natural, class: "form-control" %>
-        <%= f.label :natural, 'Persona Natural', class: "white" %>
+        <div class="row">
+          <div class="col-xs-6">
+            <%= f.radio_button :natural, true, checked: true %>
+            <%= f.label :natural_true, 'Persona Natural', class: "white" %>
+          </div>
+          <div class="col-xs-6" align="right">
+            <%= f.radio_button :natural, false %>
+            <%= f.label :natural_false, 'Persona Jurídica', class: "white" %>
+          </div>
+        </div>
       </div>
       
-      <div class="form-group">
-        <%= f.check_box :juridico class: "form-control" %>
-        <%= f.label :juridico, 'Persona Jurídica', class: "white" %>
-      </div>
-      
-      <div class="actions">
+      <div class="actions" align="center">
         <%= f.submit(@operation.new_record? ? "Agregar" : "Actualizar", class: "btn btn-default bottom-ten") %>
       </div>
     </div><!--col-xs-4 white-->

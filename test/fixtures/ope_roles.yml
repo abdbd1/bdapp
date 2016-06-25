@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  operation_id: 
+  role_id: 
+  account_id: 
+
+two:
+  operation_id: 
+  role_id: 
+  account_id: 

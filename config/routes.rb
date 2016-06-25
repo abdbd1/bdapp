@@ -22,9 +22,13 @@ Rails.application.routes.draw do
   
   resources :products
   resources :roles, except: [:show]
-  get 'allocation' => 'roles#allocation'
-  put 'allocate' => 'roles#allocate'
+  get 'role_allocation' => 'roles#allocation'
+  post 'role_allocate' => 'roles#allocate'
+  #put 'role_allocate' => 'roles#allocate'
+  
   resources :operations
+  get 'operation_allocation' => 'operations#allocation'
+  post 'operation_allocate' => 'operations#allocate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

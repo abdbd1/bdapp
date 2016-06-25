@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625043833) do
+ActiveRecord::Schema.define(version: 20160625203130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "tipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "card_coors", force: :cascade do |t|
     t.datetime "created_at",    null: false
@@ -42,6 +48,18 @@ ActiveRecord::Schema.define(version: 20160625043833) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ope_roles", force: :cascade do |t|
+    t.integer  "operation_id"
+    t.integer  "role_id"
+    t.integer  "account_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "ope_roles", ["account_id"], name: "index_ope_roles_on_account_id", using: :btree
+  add_index "ope_roles", ["operation_id"], name: "index_ope_roles_on_operation_id", using: :btree
+  add_index "ope_roles", ["role_id"], name: "index_ope_roles_on_role_id", using: :btree
+
   create_table "operations", force: :cascade do |t|
     t.string   "acronimo"
     t.string   "nombre"
@@ -49,7 +67,6 @@ ActiveRecord::Schema.define(version: 20160625043833) do
     t.integer  "montomin"
     t.string   "tipo"
     t.boolean  "natural"
-    t.boolean  "juridico"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,6 +107,18 @@ ActiveRecord::Schema.define(version: 20160625043833) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "user_opes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "operation_id"
+    t.integer  "account_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "user_opes", ["account_id"], name: "index_user_opes_on_account_id", using: :btree
+  add_index "user_opes", ["operation_id"], name: "index_user_opes_on_operation_id", using: :btree
+  add_index "user_opes", ["user_id"], name: "index_user_opes_on_user_id", using: :btree
+
   create_table "user_ques", force: :cascade do |t|
     t.string   "answer"
     t.datetime "created_at",  null: false
@@ -106,6 +135,7 @@ ActiveRecord::Schema.define(version: 20160625043833) do
     t.integer  "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "asignado"
   end
 
   add_index "user_roles", ["role_id"], name: "index_user_roles_on_role_id", using: :btree
@@ -137,8 +167,14 @@ ActiveRecord::Schema.define(version: 20160625043833) do
   add_foreign_key "card_coors", "cards"
   add_foreign_key "card_coors", "coordinates"
   add_foreign_key "cards", "users"
+  add_foreign_key "ope_roles", "accounts"
+  add_foreign_key "ope_roles", "operations"
+  add_foreign_key "ope_roles", "roles"
   add_foreign_key "phones", "users"
   add_foreign_key "products", "users"
+  add_foreign_key "user_opes", "accounts"
+  add_foreign_key "user_opes", "operations"
+  add_foreign_key "user_opes", "users"
   add_foreign_key "user_ques", "questions"
   add_foreign_key "user_ques", "users"
   add_foreign_key "user_roles", "roles"

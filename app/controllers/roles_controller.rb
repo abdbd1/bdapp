@@ -5,8 +5,13 @@ class RolesController < ApplicationController
   
   def create
     @role = Role.new(role_params)
+    @user_role = UserRole.new
     
-    if @role.save
+    @user_role.user = current_user
+    @user_role.role = @role
+    @user_role.asignado = false
+    
+    if @user_role.save and @role.save
       flash[:success] = "El nuevo Rol ha sido creado."
       redirect_to roles_path
     else
@@ -15,7 +20,6 @@ class RolesController < ApplicationController
   end
   
   def allocation
-    @roles = Role.all
   end
   
   def allocate
@@ -35,6 +39,7 @@ class RolesController < ApplicationController
     end
     
     i = 0
+    not_allocated = false
     
     @users.each do |user| # Evita que se guarden roles repetidos
       @roles.each do |role|
@@ -48,9 +53,20 @@ class RolesController < ApplicationController
         unless has_role
           @user_roles[i].user = user
           @user_roles[i].role = role
-          @user_roles[i].save
+          @user_roles[i].asignado = true
+          unless @user_roles[i].save
+            not_allocated = true
+          end
           i += 1
         end
+      end
+      
+      if not_allocated == false
+        flash[:success] = "Los Roles han sido asignados."
+        redirect_to roles_path
+        return
+      else
+        render :allocation
       end
     end
     
@@ -61,9 +77,6 @@ class RolesController < ApplicationController
     # @roles.each do |role|
     #   puts role.nombre
     # end
-    
-    flash[:success] = "Los Roles han sido asignados."
-    redirect_to roles_path
   end
 
   def edit
@@ -82,7 +95,7 @@ class RolesController < ApplicationController
   end
 
   def index
-    @roles = Role.all
+    #@roles = Role.all
   end
   
   def destroy

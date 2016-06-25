@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :products, dependent: :destroy
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
+  has_many :user_opes
+  has_many :operations, through: :user_opes
   
   validates_presence_of :name, :surname
 end

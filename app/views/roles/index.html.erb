@@ -14,32 +14,63 @@
       <div class="col-xs-4 col-xs-offset-1 left-col">
         <% if current_user.counter < 3 %>
           <h2><%= link_to 'Crear', new_role_path, class: "no-decoration quick-regular white" %></h2>
-          <h2><%= link_to 'Asignar', allocation_path, class: "no-decoration quick-regular white" %></h2>
+          <h2><%= link_to 'Asignar a Usuarios', role_allocation_path, class: "no-decoration quick-regular white" %></h2>
         <% end %>
         <% if current_user.counter > 1 %>
           <h2 align="center">Tus Roles Asignados</h2>
-          <% current_user.user_roles.each do |role| %>
-            <h3><%= role.role.nombre %></h3>
+          <% current_user.user_roles.each do |user_role| %>
+            <% if user_role.asignado %>
+              <h3><%= user_role.role.nombre %></h3>
+            <% end %>
           <% end %>
         <% end %>
       </div>
       
       <div class="col-xs-5 col-xs-offset-1 right-col">
         <h2 align="center">Todos los Roles</h2>
-        <% @roles.each do |role| %>
+        <% current_user.user_roles.each do |user_role| %><!--Muestra los roles creados por el usuario-->
           <h3>
-            <%= role.nombre %>
-            <% if current_user.counter < 3 %>
+            <%= user_role.role.nombre %>
+            <% if current_user.counter < 3 and user_role.asignado == false %><!--Si es Cliente o Administrador cuyo rol no se le fue asignado, puede editar o eliminar dicho rol-->
               <small>
-                | <%= link_to "Editar", edit_role_path(role), class: "yellow" %>
-                | <%= link_to "Eliminar", role, method: :delete,
+                | <%= link_to "Editar", edit_role_path(user_role.role), class: "yellow" %>
+                | <%= link_to "Eliminar", user_role.role, method: :delete,
                       data: { confirm: "¿Estás seguro de querer eliminar el Rol?" },
                       class: "red" %>
               </small>
             <% end %>
           </h3>
         <% end %>
-      </div><!--col-xs-8 col-xs-offset-2-->
+        <% if current_user.counter > 1 %>
+          <% current_user.parent.user_roles.each do |parent_role| %>
+            <h3>
+              <% repeated = false %>
+              <% current_user.user_roles.each do |current_user_role| %>
+                <% if current_user_role.role.nombre == parent_role.role.nombre %>
+                  <% repeated = true %>
+                <% end %>
+              <% end %>
+              
+              <% if current_user.counter < 3 and !repeated %>
+                <%= parent_role.role.nombre %>
+                <small>
+                  | <%= link_to "Editar", edit_role_path(parent_role.role), class: "yellow" %>
+                  | <%= link_to "Eliminar", parent_role.role, method: :delete,
+                        data: { confirm: "¿Estás seguro de querer eliminar el Rol?" },
+                        class: "red" %>
+                </small>
+              <% end %>
+            </h3>
+          <% end %>
+          <% if current_user.counter == 3 %>
+            <% current_user.parent.parent.user_roles.each do |user_role| %>
+              <h3>
+                <%= user_role.role.nombre %>
+              </h3>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div><!--col-xs-5 col-xs-offset-1 right-col-->
     </div><!--row-->
   </div><!--col-xs-12-->
 </div><!--row role-index-->
