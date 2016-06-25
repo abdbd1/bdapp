@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  acronimo: MyString
+  nombre: MyString
+  montomax: 1
+  montomin: 1
+  tipo: MyString
+  natural: false
+  juridico: false
+
+two:
+  acronimo: MyString
+  nombre: MyString
+  montomax: 1
+  montomin: 1
+  tipo: MyString
+  natural: false
+  juridico: false

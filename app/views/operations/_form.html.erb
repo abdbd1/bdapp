@@ -1,0 +1,54 @@
+<div class="row form-row background-transparent">
+  <%= form_for @role do |f| %>
+    <div class="col-xs-4">
+      <% if @operation.errors.any? %>
+        <div class="row error-row">
+          <div class="col-xs-12">
+            <%= render 'shared/errors', obj: @operation %>
+          </div><!--col-xs-12-->
+        </div><!--row-->
+      <% end %>
+    </div>
+    
+    <div class="col-xs-4 white">
+      <div class="form-group">
+        <%= f.label :acronimo, 'Acrónimo de la Operación' %>
+        <%= f.text_field :acronimo, autofocus: true , class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :nombre, 'Nombre', class: "white" %>
+        <%= f.text_field :nombre class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :montomax, 'Monto Máximo Admitido', class: "white" %>
+        <%= f.number_field :montomax class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :montomin, 'Monto Mínimo Admitido', class: "white" %>
+        <%= f.number_field :montomin class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :tipo, 'Monto Mínimo Admitido', class: "white" %>
+        <%= f.number_field :tipo class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.check_box :natural, class: "form-control" %>
+        <%= f.label :natural, 'Persona Natural', class: "white" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.check_box :juridico class: "form-control" %>
+        <%= f.label :juridico, 'Persona Jurídica', class: "white" %>
+      </div>
+      
+      <div class="actions">
+        <%= f.submit(@operation.new_record? ? "Agregar" : "Actualizar", class: "btn btn-default bottom-ten") %>
+      </div>
+    </div><!--col-xs-4 white-->
+  <% end %>
+</div>

@@ -11,7 +11,7 @@
     </div><!--row-->
     
     <div class="row quick-regular white">
-      <div class="col-xs-4 col-xs-offset-1">
+      <div class="col-xs-4 col-xs-offset-1 left-col">
         <% if current_user.counter < 3 %>
           <h2><%= link_to 'Crear', new_role_path, class: "no-decoration quick-regular white" %></h2>
           <h2><%= link_to 'Asignar', allocation_path, class: "no-decoration quick-regular white" %></h2>
@@ -24,7 +24,7 @@
         <% end %>
       </div>
       
-      <div class="col-xs-5 col-xs-offset-1">
+      <div class="col-xs-5 col-xs-offset-1 right-col">
         <h2 align="center">Todos los Roles</h2>
         <% @roles.each do |role| %>
           <h3>

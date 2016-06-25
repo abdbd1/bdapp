@@ -12,7 +12,7 @@
     
     <%= form_tag("/allocate", method: "put") do %>
       <% i = 0 %>
-      <div class="row quick-regular white">
+      <div class="row quick-regular white form-row background-transparent" style="margin-bottom: 20px;">
         <div class="col-xs-4 col-xs-offset-1">
           <% if current_user.counter == 1 %>
             <h2 align="center">Tus Administradores</h2>
@@ -55,8 +55,10 @@
       </div><!--row quick-regular white-->
     
       <div class="row">
-        <div class="col-xs-2 col-xs-offset-5">
+        <div class="col-xs-2 col-xs-offset-5 background-transparent border-rounded">
+          <br>
           <%= submit_tag "Asignar", class: "btn btn-default btn-block" %>
+          <br>
         </div>
       </div>
     <% end %>
