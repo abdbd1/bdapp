@@ -30,7 +30,12 @@
           <h3>
             <%= role.nombre %>
             <% if current_user.counter < 3 %>
-              <small><%= link_to "Eliminar", role, method: :delete, data: { confirm: "¿Estás seguro de querer eliminar el Rol?" }  %></small>
+              <small>
+                | <%= link_to "Editar", edit_role_path(role), class: "yellow" %>
+                | <%= link_to "Eliminar", role, method: :delete,
+                      data: { confirm: "¿Estás seguro de querer eliminar el Rol?" },
+                      class: "red" %>
+              </small>
             <% end %>
           </h3>
         <% end %>

@@ -36,7 +36,7 @@ class RolesController < ApplicationController
     
     i = 0
     
-    @users.each do |user|
+    @users.each do |user| # Evita que se guarden roles repetidos
       @roles.each do |role|
         has_role = false
         user.user_roles.each do |user_role|
@@ -67,6 +67,18 @@ class RolesController < ApplicationController
   end
 
   def edit
+    @role = Role.find(params[:id])
+  end
+  
+  def update
+    @role = Role.find(params[:id])
+    
+    if @role.update_attributes(role_params)
+      flash[:success] = "¡Rol Modificado!"
+      redirect_to roles_path
+    else
+      render 'edit'
+    end
   end
 
   def index
