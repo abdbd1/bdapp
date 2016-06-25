@@ -40,7 +40,7 @@ class RolesController < ApplicationController
       @roles.each do |role|
         has_role = false
         user.user_roles.each do |user_role|
-          if user_role.role.nombre.include? role.nombre
+          if user_role.role.nombre.downcase == role.nombre.downcase
             has_role = true
           end
         end
