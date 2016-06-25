@@ -27,22 +27,30 @@ class RolesController < ApplicationController
       if key.include? "user" and id.to_i > 0
         #puts "Key: #{key}, ID: #{id}"
         @users << User.find(id)
-        @user_roles << UserRole.new
       elsif key.include? "rol" and id.to_i > 0
         @roles << Role.find(id)
-        @user_roles << UserRole.new
         #puts "Rol: #{key}, ID: #{id}"
       end
+      @user_roles << UserRole.new
     end
     
     i = 0
     
     @users.each do |user|
       @roles.each do |role|
-        @user_roles[i].user = user
-        @user_roles[i].role = role
-        @user_roles[i].save
-        i += 1
+        has_role = false
+        user.user_roles.each do |user_role|
+          if user_role.role.nombre.include? role.nombre
+            has_role = true
+          end
+        end
+        
+        unless has_role
+          @user_roles[i].user = user
+          @user_roles[i].role = role
+          @user_roles[i].save
+          i += 1
+        end
       end
     end
     
@@ -54,7 +62,8 @@ class RolesController < ApplicationController
     #   puts role.nombre
     # end
     
-    redirect_to allocation_path
+    flash[:success] = "Los Roles han sido asignados."
+    redirect_to roles_path
   end
 
   def edit
@@ -62,6 +71,13 @@ class RolesController < ApplicationController
 
   def index
     @roles = Role.all
+  end
+  
+  def destroy
+    flash[:danger] = "Se ha eliminado el Rol"
+    #@role.destroy
+    Role.find(params[:id]).destroy
+    redirect_to roles_path
   end
   
   private
