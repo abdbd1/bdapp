@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   end
   
   resources :products
+  get 'product_allocation' => 'products#allocation'
+  post 'product_allocate' => 'products#allocate'
+  
   resources :roles, except: [:show]
   get 'role_allocation' => 'roles#allocation'
   post 'role_allocate' => 'roles#allocate'

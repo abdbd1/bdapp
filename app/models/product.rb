@@ -1,5 +1,8 @@
 class Product < ActiveRecord::Base
+  validates_presence_of :nombre, :vigencia, :emision, :tipo, :saldo
+    
   belongs_to :user
   
-  validates_presence_of :nombre, :vigencia, :emision, :tipo, :saldo
+  has_many :ope_pros
+  has_many :operations, through: :ope_pros
 end

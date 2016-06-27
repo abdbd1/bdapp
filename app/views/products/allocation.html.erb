@@ -1,0 +1,70 @@
+<div class="row product-allocation">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-regular white">
+            Asigna tus productos a tus operaciones.
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <%= form_tag("/product_allocate", method: "post") do %>
+      <div class="row quick-regular white form-row background-transparent" style="margin-bottom: 20px;">
+        <div class="col-xs-4 col-xs-offset-1">
+          <% if current_user.counter < 3 %>
+            <h2 align="center">Tus Operaciones</h2>
+            <% current_user.user_opes.each do |user_ope| %>
+              <h3>
+                <%= check_box_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.id) %>
+                <%= label_tag("operation" + user_ope.operation.id.to_s,
+                              "#{user_ope.operation.nombre}") %>
+              </h3>
+            <% end %>
+            
+            <% if current_user.counter == 1 %>
+              <h2>Operaciones creadas por tus Administradores</h2>
+              <% current_user.children.each do |admin| %>
+                <% admin.user_opes.each do |user_ope| %>
+                  <h3>
+                    <%= check_box_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.id) %>
+                    <%= label_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.nombre) %>
+                  </h3>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <div class="col-xs-4 col-xs-offset-2">
+          <h2 align="center">Tus Productos</h2>
+          <% current_user.products.each do |product| %>
+            <h3>
+              <%= check_box_tag("product" + product.id.to_s, product.id) %>
+              <%= label_tag("product" + product.id.to_s, product.nombre) %>
+            </h3>
+          <% end %>
+          <% if current_user.counter == 1 %>
+            <% current_user.children.each do |admin| %>
+              <% admin.products.each do |product| %>
+                <h3>
+                  <%= check_box_tag("product" + product.id.to_s, product.id) %>
+                  <%= label_tag("product" + product.id.to_s, product.nombre) %>
+                </h3>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div><!--row quick-regular white-->
+    
+      <div class="row">
+        <div class="col-xs-2 col-xs-offset-5 background-transparent border-rounded">
+          <br>
+          <%= submit_tag "Asignar", class: "btn btn-default btn-block" %>
+          <br>
+        </div>
+      </div><!--row-->
+    <% end %>
+  </div><!--"col-xs-12-->
+</div><!--row product-allocation-->

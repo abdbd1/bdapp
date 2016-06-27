@@ -32,6 +32,7 @@
         <% end %>
         <% if current_user.counter < 3 %>
           <h3 align="right"><%= link_to "Crear nuevo Producto", new_product_path, class: "no-decoration quick-regular white" %></h3>
+          <h3 align="right"><%= link_to "Asignar a Operaciones", product_allocation_path, class: "no-decoration quick-regular white" %></h3>
         <% end %>
       </div>
     </div><!--row-->

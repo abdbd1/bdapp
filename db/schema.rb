@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625203130) do
+ActiveRecord::Schema.define(version: 20160626160551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20160625203130) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ope_pros", force: :cascade do |t|
+    t.integer  "operation_id"
+    t.integer  "product_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "ope_pros", ["operation_id"], name: "index_ope_pros_on_operation_id", using: :btree
+  add_index "ope_pros", ["product_id"], name: "index_ope_pros_on_product_id", using: :btree
+
   create_table "ope_roles", force: :cascade do |t|
     t.integer  "operation_id"
     t.integer  "role_id"
@@ -69,7 +79,17 @@ ActiveRecord::Schema.define(version: 20160625203130) do
     t.boolean  "natural"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "parent_id"
   end
+
+  create_table "otps", force: :cascade do |t|
+    t.string   "clave"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "otps", ["user_id"], name: "index_otps_on_user_id", using: :btree
 
   create_table "phones", force: :cascade do |t|
     t.string   "number"
@@ -147,11 +167,6 @@ ActiveRecord::Schema.define(version: 20160625203130) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
@@ -167,9 +182,12 @@ ActiveRecord::Schema.define(version: 20160625203130) do
   add_foreign_key "card_coors", "cards"
   add_foreign_key "card_coors", "coordinates"
   add_foreign_key "cards", "users"
+  add_foreign_key "ope_pros", "operations"
+  add_foreign_key "ope_pros", "products"
   add_foreign_key "ope_roles", "accounts"
   add_foreign_key "ope_roles", "operations"
   add_foreign_key "ope_roles", "roles"
+  add_foreign_key "otps", "users"
   add_foreign_key "phones", "users"
   add_foreign_key "products", "users"
   add_foreign_key "user_opes", "accounts"

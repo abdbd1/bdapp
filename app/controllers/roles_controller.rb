@@ -60,14 +60,13 @@ class RolesController < ApplicationController
           i += 1
         end
       end
-      
-      if not_allocated == false
-        flash[:success] = "Los Roles han sido asignados."
-        redirect_to roles_path
-        return
-      else
-        render :allocation
-      end
+    end
+    
+    if not_allocated == false
+      flash[:success] = "Los Roles han sido asignados."
+      redirect_to roles_path
+    else
+      render :allocation
     end
     
     # @users.each do |user|

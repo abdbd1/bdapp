@@ -28,11 +28,11 @@ class OperationsController < ApplicationController
     
     params.each do |key, id|
       if key.include? "operation" and id.to_i > 0
-        puts "Key: #{key}, ID: #{id}"
+        #puts "Key: #{key}, ID: #{id}"
         @operations << Operation.find(id)
       elsif key.include? "role" and id.to_i > 0
         @roles << Role.find(id)
-        puts "Rol: #{key}, ID: #{id}"
+        #puts "Rol: #{key}, ID: #{id}"
       end
       @ope_roles << OpeRole.new
     end
@@ -59,14 +59,13 @@ class OperationsController < ApplicationController
           i += 1
         end
       end
-      
-      if not_allocated == false
-        flash[:success] = "Las Operaciones han sido asignadas."
-        redirect_to operations_path
-        return
-      else
-        render :allocation
-      end
+    end
+    
+    if not_allocated == false
+      flash[:success] = "Las Operaciones han sido asignadas."
+      redirect_to operations_path
+    else
+      render :allocation
     end
   end
 
