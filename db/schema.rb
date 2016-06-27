@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626160551) do
+ActiveRecord::Schema.define(version: 20160627013955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20160626160551) do
     t.string   "tipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "approval_levels", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.boolean  "paralelo"
+    t.boolean  "aprobado"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "card_coors", force: :cascade do |t|
@@ -47,6 +56,18 @@ ActiveRecord::Schema.define(version: 20160626160551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "ope_levels", force: :cascade do |t|
+    t.integer  "rango_min"
+    t.integer  "rango_max"
+    t.integer  "operation_id"
+    t.integer  "approval_level_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "ope_levels", ["approval_level_id"], name: "index_ope_levels_on_approval_level_id", using: :btree
+  add_index "ope_levels", ["operation_id"], name: "index_ope_levels_on_operation_id", using: :btree
 
   create_table "ope_pros", force: :cascade do |t|
     t.integer  "operation_id"
@@ -127,6 +148,17 @@ ActiveRecord::Schema.define(version: 20160626160551) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "signers", force: :cascade do |t|
+    t.string   "tipo_firma"
+    t.integer  "approval_level_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "signers", ["approval_level_id"], name: "index_signers_on_approval_level_id", using: :btree
+  add_index "signers", ["user_id"], name: "index_signers_on_user_id", using: :btree
+
   create_table "user_opes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "operation_id"
@@ -182,6 +214,8 @@ ActiveRecord::Schema.define(version: 20160626160551) do
   add_foreign_key "card_coors", "cards"
   add_foreign_key "card_coors", "coordinates"
   add_foreign_key "cards", "users"
+  add_foreign_key "ope_levels", "approval_levels"
+  add_foreign_key "ope_levels", "operations"
   add_foreign_key "ope_pros", "operations"
   add_foreign_key "ope_pros", "products"
   add_foreign_key "ope_roles", "accounts"
@@ -190,6 +224,8 @@ ActiveRecord::Schema.define(version: 20160626160551) do
   add_foreign_key "otps", "users"
   add_foreign_key "phones", "users"
   add_foreign_key "products", "users"
+  add_foreign_key "signers", "approval_levels"
+  add_foreign_key "signers", "users"
   add_foreign_key "user_opes", "accounts"
   add_foreign_key "user_opes", "operations"
   add_foreign_key "user_opes", "users"

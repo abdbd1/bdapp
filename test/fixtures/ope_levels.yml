@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rango_min: 1
+  rango_max: 1
+  operation_id: 
+  approval_level_id: 
+
+two:
+  rango_min: 1
+  rango_max: 1
+  operation_id: 
+  approval_level_id: 

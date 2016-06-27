@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo_firma: MyString
+  approval_level_id: 
+  user_id: 
+
+two:
+  tipo_firma: MyString
+  approval_level_id: 
+  user_id: 

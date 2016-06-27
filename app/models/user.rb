@@ -25,5 +25,8 @@ class User < ActiveRecord::Base
   
   has_many :otps
   
+  has_many :signers
+  has_many :approval_levels, through: :signers
+  
   validates_presence_of :name, :surname
 end
