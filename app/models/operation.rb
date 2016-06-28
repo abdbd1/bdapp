@@ -12,4 +12,7 @@ class Operation < ActiveRecord::Base
   
   has_many :ope_pros
   has_many :products, through: :ope_pros
+  
+  has_many :ope_levels
+  has_many :approval_levels, through: :ope_levels
 end

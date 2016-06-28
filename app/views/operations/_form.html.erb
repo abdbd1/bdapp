@@ -33,7 +33,15 @@
       
       <div class="form-group">
         <%= f.label :tipo, 'Tipo de Operación' %>
-        <%= f.select :tipo, options_for_select(["Transferencia a Terceros", "Transferencia a Cuenta de la misma moneda", "Consulta de Saldo"]), {}, {class: "form-control"} %>
+        <%= f.select :tipo,
+          options_for_select([
+            "Transferencia a Terceros mismo Banco",
+            "Transferencia a Terceros otro Banco",
+            "Transferencia a Propio mismo Banco",
+            "Transferencia a Propio otro Banco",
+            "Pago de TDC",
+            "Consulta de Saldo"
+          ]), {}, {class: "form-control"} %>
       </div>
       
       <div class="form-group">

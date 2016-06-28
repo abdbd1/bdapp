@@ -10,20 +10,51 @@
       </div><!--col-xs-12-->
     </div><!--row-->
     
-    <div class="row background-transparent">
+    <%= form_tag(action: "create", method: "post") do %>
+      <div class="row background-transparent">
       <div class="col-xs-4 quick-regular white">
-        <h2 align="center">Tipo de Aprobación</h2>
-        <h3>
-          <%= radio_button_tag(:tipo, true, checked: true) %>
-          <%= label_tag(:tipo_true, 'Paralelo') %>
-        </h3>
-        <h3>
-          <%= radio_button_tag(:tipo, false) %>
-          <%= label_tag(:tipo_false, 'Jerárquico') %>
-        </h3>
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 align="center">Tipo de Aprobación</h2>
+          </div>
+          <div class="col-xs-6">
+            <h3>
+              <%= radio_button_tag(:paralelo, true, checked: true) %>
+              <%= label_tag(:paralelo_true, 'Paralelo') %>
+            </h3>
+          </div>
+          <div class="col-xs-6" align="right">
+            <h3>
+              <%= radio_button_tag(:paralelo, false) %>
+              <%= label_tag(:paralelo_false, 'Rango-Monto') %>
+            </h3>
+          </div>
+          
+          <div class="col-xs-12">
+            <h2 align="center">Nombre</h2>
+          </div>
+          <div class="col-xs-10 col-xs-offset-1">
+            <h3>
+              <%= text_field_tag(:nombre, nil, class: "form-control approval-field quick-bold") %>
+            </h3>
+          </div>
+          
+          <div class="col-xs-12">
+            <h2 align="center">Descripción</h2>
+          </div>
+          <div class="col-xs-10 col-xs-offset-1">
+            <h3>
+              <%= text_area_tag(:descripcion, nil, class: "form-control text-area approval-field quick-bold") %>
+            </h3>
+          </div>
+        </div><!--row-->
       </div>
       <div class="col-xs-4 quick-regular white">
         <h2 align="center">Escoger Firmantes</h2>
+        <h3>
+          <%= check_box_tag("user" + current_user.id.to_s, current_user.id) %>
+          <%= label_tag("user" + current_user.id.to_s, "Usted") %>
+        </h3>
         <% current_user.children.each do |child| %>
           <% if child.signatory %>
             <h3>
@@ -76,5 +107,14 @@
         <% end %>
       </div>
     </div><!--row-->
+      
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-2 col-xs-offset-5 background-transparent border-rounded">
+          <br>
+          <%= submit_tag "Listo", class: "btn btn-default btn-block" %>
+          <br>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
