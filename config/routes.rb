@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   resources :operations
   get 'operation_allocation' => 'operations#allocation'
   post 'operation_allocate' => 'operations#allocate'
+  
+  resources :approval_levels
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

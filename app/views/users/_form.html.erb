@@ -60,6 +60,15 @@
         <%= f.hidden_field :counter, :value => 1 %>
         <%= f.hidden_field :type, :value => 'Principal' %>
       <% end %>
+      
+      <% if @user.new_record? and current_user and current_user.counter < 3 %>
+        <%= f.check_box :signatory %>
+        <%= f.label :signatory, "Elegir como firmante", class: "white" %>
+      <% end %>
+      
+      <% unless current_user %>
+        <%= f.hidden_field :signatory, value: true %>
+      <% end %>
     
       <div class="actions">
         <% if current_user and current_user.counter == 1 %>
@@ -73,13 +82,15 @@
       </div>
     </div><!--col-xs-4-->
     
-    <div align="center" class="col-xs-4 quick-regular white" style="margin-top: 400px;">
-      <h3>Cancelar mi Cuenta</h3>
-        <p>
-          Inconforme? <%= button_to "Cancelar mi Cuenta", registration_path(resource_name),
-                          data: { confirm: "¿Estás seguro de querer eliminar tu cuenta?" },
-                          method: :delete, class: "btn btn-danger" %>
-        </p>
-    </div>
+    <% unless @user.new_record? %>
+      <div align="center" class="col-xs-4 quick-regular white" style="margin-top: 400px;">
+        <h3>Cancelar mi Cuenta</h3>
+          <p>
+            Inconforme? <%= button_to "Cancelar mi Cuenta", registration_path(resource_name),
+                            data: { confirm: "¿Estás seguro de querer eliminar tu cuenta?" },
+                            method: :delete, class: "btn btn-danger" %>
+          </p>
+      </div>
+    <% end %>
   <% end %>
 </div><!--row form-row background-transparent-->

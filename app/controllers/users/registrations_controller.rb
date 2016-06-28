@@ -22,7 +22,9 @@ skip_before_action :require_no_authentication
     if resource.persisted?
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
-        sign_up(resource_name, resource)
+        unless current_user
+          sign_up(resource_name, resource)
+        end
         respond_with resource, location: after_sign_up_path_for(resource)
       else
         set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
@@ -64,7 +66,7 @@ skip_before_action :require_no_authentication
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname, :type, :counter, :user_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname, :counter, :user_id, :signatory])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

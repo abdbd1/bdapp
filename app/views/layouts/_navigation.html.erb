@@ -4,13 +4,15 @@
       <%= link_to 'Base de Datos I', root_path, class: "navbar-brand" %>
     </div>
     <ul class="nav navbar-nav">
-      <% if current_user %>
+      <% if current_user and current_user.counter < 4 %>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-user") + ' Mi Perfil', profile_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-credit-card") + ' Mis Productos', products_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-phone") + ' Operaciones', operations_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-check") + ' Roles', roles_path) %></li>
-        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-ok") + ' Aprobaciones', "#") %></li>
+        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-ok") + ' Aprobaciones', approval_levels_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-lock") + ' Seguridad', security_path) %></li>
+      <% elsif current_user and current_user.counter == 4 %>
+        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-copy") + ' Reportes', "#") %></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,80 @@
+<div class="row approval-new">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-regular white">
+            Decide quiénes deben firmar.
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <div class="row background-transparent">
+      <div class="col-xs-4 quick-regular white">
+        <h2 align="center">Tipo de Aprobación</h2>
+        <h3>
+          <%= radio_button_tag(:tipo, true, checked: true) %>
+          <%= label_tag(:tipo_true, 'Paralelo') %>
+        </h3>
+        <h3>
+          <%= radio_button_tag(:tipo, false) %>
+          <%= label_tag(:tipo_false, 'Jerárquico') %>
+        </h3>
+      </div>
+      <div class="col-xs-4 quick-regular white">
+        <h2 align="center">Escoger Firmantes</h2>
+        <% current_user.children.each do |child| %>
+          <% if child.signatory %>
+            <h3>
+              <%= check_box_tag("user" + child.id.to_s, child.id) %>
+              <%= label_tag("user" + child.id.to_s, "#{child.name} #{child.surname}") %>
+            </h3>
+          <% end %>
+        <% end %>
+        <% if current_user.counter == 1 %>
+          <% current_user.children.each do |child| %>
+            <% child.children.each do |grandchild| %>
+              <% if grandchild.signatory %>
+                <h3>
+                  <%= check_box_tag("user" + grandchild.id.to_s, grandchild.id) %>
+                  <%= label_tag("user" + grandchild.id.to_s, "#{grandchild.name} #{grandchild.surname}") %>
+                </h3>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-xs-4 quick-regular white">
+        <h2 align="center">Operación a Aprobar</h2>
+        <% current_user.user_opes.each do |user_ope| %>
+          <h3>
+            <%= check_box_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.id) %>
+            <%= label_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.nombre) %>
+          </h3>
+        <% end %>
+        <% if current_user.counter < 3 %>
+          <% current_user.children.each do |child| %>
+            <% child.user_opes.each do |user_ope| %>
+              <h3>
+                <%= check_box_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.id) %>
+                <%= label_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.nombre) %>
+              </h3>
+            <% end %>
+            
+            <% if child.counter == 2 %>
+              <% child.children.each do |grandchild| %>
+                <% grandchild.user_opes.each do |user_ope| %>
+                  <h3>
+                    <%= check_box_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.id) %>
+                    <%= label_tag("operation" + user_ope.operation.id.to_s, user_ope.operation.nombre) %>
+                  </h3>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div><!--row-->
+  </div>
+</div>
