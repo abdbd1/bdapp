@@ -10,15 +10,46 @@
       </div><!--col-xs-12-->
     </div><!--row-->
     
-    <div class="row quick-regular">
-      <div class="col-xs-6 left-col">
+    <div class="row quick-regular white" style="margin-bottom: 20px;">
+      <div class="col-xs-8 col-xs-offset-2 center-col">
         <% if current_user.counter < 3 %>
-          <h2 align="center"><%= link_to "Crear y Asignar Niveles de Aprobación", new_approval_level_path, class: "white" %></h2>
+          <h2 align="center">
+            <%= link_to "> Crear y Asignar Niveles de Aprobación <",
+                new_approval_level_path, class: "no-decoration white" %>
+          </h2>
         <% end %>
       </div>
-      <div class="col-xs-6">
+    </div>
+    
+    <div class="row quick-regular white">
+      <div class="col-xs-4 col-xs-offset-1 left-col">
+        <% if current_user.signatory %>
+          <h2 align="center">Firmas Pendientes</h2>
+        <% end %>
+      </div>
+      
+      <div class="col-xs-5 col-xs-offset-1 right-col">
         <% if current_user.counter < 3 %>
-          <h2 align="center"><%= link_to "Elegir Firmantes", "#", class: "white" %></h2>
+          <h2 align="center">Usuarios Firmantes</h2>
+          <% current_user.children.each do |admin| %>
+            <% if admin.signatory %>
+              <h3>
+                <%= "#{admin.name} #{admin.surname}" %>
+              </h3>
+            <% end %>
+          <% end %>
+          
+          <% if current_user.counter == 1 %>
+            <% current_user.children.each do |admin| %>
+              <% admin.children.each do |user| %>
+                <% if user.signatory %>
+                  <h3>
+                    <%= "#{user.name} #{user.surname}" %>
+                  </h3>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     </div><!--row-->
