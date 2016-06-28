@@ -74,6 +74,18 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @product = Product.find(params[:id])
+  end
+  
+  def update
+    @product = Product.find(params[:id])
+    
+    if @product.update_attributes(product_params)
+      flash[:success] = "Producto Modificado."
+      redirect_to products_path
+    else
+      render 'edit'
+    end
   end
 
   def show
@@ -83,9 +95,15 @@ class ProductsController < ApplicationController
     @products = current_user.products
   end
   
+  def destroy
+    flash[:danger] = "Se ha eliminado el Producto"
+    Product.find(params[:id]).destroy
+    redirect_to products_path
+  end
+  
   private
     
     def product_params
-      params.require(:product).permit(:nombre, :vigencia, :emision, :tipo, :saldo)
+      params.require(:product).permit(:nombre, :vigencia, :emision, :tipo, :saldo, :number)
     end
 end

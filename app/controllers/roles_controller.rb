@@ -11,7 +11,7 @@ class RolesController < ApplicationController
     @user_role.role = @role
     @user_role.asignado = false
     
-    if @user_role.save and @role.save
+    if @role.save and @user_role.save
       flash[:success] = "El nuevo Rol ha sido creado."
       redirect_to roles_path
     else
@@ -98,7 +98,7 @@ class RolesController < ApplicationController
   end
   
   def destroy
-    flash[:danger] = "Se ha eliminado el Rol"
+    flash[:danger] = "Se ha eliminado el Rol."
     #@role.destroy
     Role.find(params[:id]).destroy
     redirect_to roles_path

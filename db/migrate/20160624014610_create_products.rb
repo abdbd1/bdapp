@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration
       t.date :vigencia
       t.date :emision
       t.string :tipo
-      t.integer :saldo
+      t.decimal :saldo
 
       t.timestamps null: false
     end

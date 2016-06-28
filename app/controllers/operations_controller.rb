@@ -10,7 +10,7 @@ class OperationsController < ApplicationController
     @user_ope.operation = @operation
     @user_ope.user = current_user
     
-    if @user_ope.save and @operation.save
+    if @operation.save and @user_ope.save
       flash[:success] = "Has creado una nueva Operación."
       redirect_to operations_path
     else
@@ -70,6 +70,18 @@ class OperationsController < ApplicationController
   end
 
   def edit
+    @operation = Operation.find(params[:id])
+  end
+  
+  def update
+    @operation = Operation.find(params[:id])
+    
+    if @operation.update_attributes(operation_params)
+      flash[:success] = "Operación Modificada."
+      redirect_to operations_path
+    else
+      render 'edit'
+    end
   end
 
   def show
@@ -78,8 +90,11 @@ class OperationsController < ApplicationController
   def index
   end
   
+  def transfer
+  end
+  
   def destroy
-    flash[:danger] = "Se ha eliminado la Operación"
+    flash[:danger] = "Se ha eliminado la Operación."
     Operation.find(params[:id]).destroy
     redirect_to operations_path
   end

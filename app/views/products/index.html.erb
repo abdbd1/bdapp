@@ -15,7 +15,15 @@
         <% if current_user.counter < 3 %>
           <h2 align="center">Tus Productos</h2>
           <% @products.each do |product| %>
-            <h3><%= product.nombre %></h3>
+            <h3>
+              <%= product.nombre %>
+              <small>
+                | <%= link_to "Editar", edit_product_path(product), class: "yellow" %>
+                | <%= link_to "Eliminar", product, method: :delete,
+                      data: { confirm: "¿Estás seguro de querer eliminar el Producto?" },
+                      class: "red" %>
+              </small>
+            </h3>
           <% end %>
         <% end %>
         <% if current_user.counter == 3 %>

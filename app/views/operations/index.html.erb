@@ -22,23 +22,17 @@
         <% if current_user.counter < 3 %>
           <h2 align="center">Todas las Operaciones</h2>
           <% current_user.user_opes.each do |user_ope| %>
-            <h3><%= user_ope.operation.nombre %></h3>
+            <h3>
+              <%= link_to user_ope.operation.nombre, "#", class: "no-decoration white" %>
+              <small>
+                | <%= link_to "Editar", edit_operation_path(user_ope.operation), class: "yellow" %>
+                | <%= link_to "Eliminar", user_ope.operation, method: :delete,
+                      data: { confirm: "¿Estás seguro de querer eliminar la Operación?" },
+                      class: "red" %>
+              </small>
+            </h3>
           <% end %>
         <% end %>
-        
-        <!--<%# @roles.each do |role| %>-->
-        <!--  <h3>-->
-        <!--    <%#= role.nombre %>-->
-        <!--    <%# if current_user.counter < 3 %>-->
-        <!--      <small>-->
-        <!--        | <%#= link_to "Editar", edit_role_path(role), class: "yellow" %>-->
-        <!--        | <%#= link_to "Eliminar", role, method: :delete,-->
-        <!--              data: { confirm: "¿Estás seguro de querer eliminar el Rol?" },-->
-        <!--              class: "red" %>-->
-        <!--      </small>-->
-        <!--    <%# end %>-->
-        <!--  </h3>-->
-        <!--<%# end %>-->
       </div><!--col-xs-5 col-xs-offset-1 right-col-->
     </div><!--row-->
   </div>
