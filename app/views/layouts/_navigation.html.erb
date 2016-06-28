@@ -12,7 +12,7 @@
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-ok") + ' Aprobaciones', approval_levels_path) %></li>
         <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-lock") + ' Seguridad', security_path) %></li>
       <% elsif current_user and current_user.counter == 4 %>
-        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-copy") + ' Reportes', "#") %></li>
+        <li><%= link_to(content_tag(:span, '', class: "glyphicon glyphicon-copy") + ' Reportes', reports_path) %></li>
       <% end %>
     </ul>
     <ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,63 @@
+<div class="row report-index">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-header">
+          <h1 align="center" class="quick-regular white">
+            Supervisa y observa los Reportes.
+          </h1>
+        </div>
+      </div><!--col-xs-12-->
+    </div><!--row-->
+    
+    <div class="row background-transparent">
+      <div class="col-xs-6 quick-regular white">
+        <h2 align="center">Usuarios y sus Roles</h2>
+        <% @users.each do |user| %>
+          <% if user.counter < 4 %>
+            <a class="no-decoration" data-toggle="collapse" href="#user<%= user.id %>" aria-expanded="false" aria-controls="collapseExample">
+              <h3 class="quick-regular white">
+                <%= "#{user.name} #{user.surname}" %>
+              </h3>
+            </a>
+            <div class="collapse" id="user<%= user.id %>">
+              <% user.user_roles.each do |user_role| %>
+                <h4>
+                  <%= user_role.role.nombre %>
+                </h4>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-xs-6 quick-regular white">
+        <h2 align="center">Clientes y sus Usuarios</h2>
+        <% @users.each do |client| %>
+          <% if client.counter == 1 %>
+            <a class="no-decoration" data-toggle="collapse" href="#client<%= client.id %>" aria-expanded="false" aria-controls="collapseExample">
+              <h3 class="quick-regular white">
+                <%= "#{client.name} #{client.surname}" %>
+              </h3>
+            </a>
+            <div class="collapse" id="client<%= client.id %>">
+              <% client.children.each do |admin| %>
+                <a class="no-decoration" data-toggle="collapse" href="#admin<%= admin.id %>" aria-expanded="false" aria-controls="collapseExample">
+                  <h4 class="quick-regular white">
+                    <%= "#{admin.name} #{admin.surname}" %>
+                  </h4>
+                </a>
+                <div class="collapse" id="admin<%= admin.id %>">
+                  <% admin.children.each do |user| %>
+                    <h5>
+                      <%= "#{user.name} #{user.surname}" %>
+                    </h5>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div><!--row-->
+  </div>
+</div>
