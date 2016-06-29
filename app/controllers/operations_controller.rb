@@ -91,6 +91,7 @@ class OperationsController < ApplicationController
   end
   
   def transfer
+    @users = User.all
   end
   
   def destroy

@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   
   resources :approval_levels
   
+  get 'new_transfer' => 'operations#transfer'
+  
   get 'reports' => 'reports#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

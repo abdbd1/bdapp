@@ -15,7 +15,12 @@
         <%#= f.label :nombre, 'Nombre', class: "top-ten white" %>
         <%#= f.text_field :nombre, autofocus: true, class: "form-control", placeholder: "Ej. Transferencias Bancarias" %>
         <%= f.label :nombre, 'Nombre del Rol' %>
-        <%= f.select :nombre, options_for_select(["Transferencias Bancarias", "Consultas de Saldo"]), {}, {class: "form-control"} %>
+        <%= f.select :nombre, options_for_select([
+          "Transferencia Bancaria",
+          "Pago de Tarjeta de Crédito",
+          "Consulta de Saldo",
+          "Administración de Nivel de Aprobación"
+        ]), {}, {class: "form-control"} %>
       </div>
       
       <div class="form-group">
