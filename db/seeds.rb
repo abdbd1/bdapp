@@ -16,7 +16,7 @@ User.create([
   {name: 'Usuario', surname: 'Interno', email: 'usuario@interno.com', password: 'password', counter: 4, signatory: false},
 ])
 
-Operation.create([
-  {acronimo: 'Black Op.', nombre: 'Operación 1', montomax: 500000, montomin: 5000, tipo: 'Special Ops.', natural: true},
-  {acronimo: 'Sub Black Op.', nombre: 'Sub Operación 1', montomax: 500000, montomin: 5000, tipo: 'Sub Special Ops.', natural: true, parent_id: 1}
-])
+#Operation.create([
+#  {acronimo: 'Black Op.', nombre: 'Operación 1', montomax: 500000, montomin: 5000, tipo: 'Special Ops.', natural: true},
+#  {acronimo: 'Sub Black Op.', nombre: 'Sub Operación 1', montomax: 500000, montomin: 5000, tipo: 'Sub Special Ops.', natural: true, parent_id: 1}
+#])

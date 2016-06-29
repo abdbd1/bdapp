@@ -25,6 +25,23 @@
       <div class="col-xs-4 col-xs-offset-1 left-col">
         <% if current_user.signatory %>
           <h2 align="center">Firmas Pendientes</h2>
+          <% current_user.signers.each do |signer| %>
+            <h3>
+              <%#= signer.approval_level.nombre %>
+              <a class="no-decoration white" data-toggle="collapse" href="#approval<%= signer.approval_level.id %>" aria-expanded="false" aria-controls="approval<%= signer.approval_level.id %>">
+                <%= signer.approval_level.nombre %>
+              </a>
+              <div class="collapse" id="approval<%= signer.approval_level.id %>">
+                <div class="well black">
+                  <%= signer.approval_level.descripcion %>
+                  <button class="btn btn-primary">
+                    Aprobar
+                  </button>
+                  <%= button_to "Aprobar", "#" %>
+                </div>
+              </div>
+            </h3>
+          <% end %>
         <% end %>
       </div>
       
