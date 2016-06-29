@@ -6,5 +6,5 @@ class Role < ActiveRecord::Base
   has_many :operations, through: :ope_roles
   
   validates_presence_of :nombre, :descripcion
-  validates_uniqueness_of :nombre
+  #validates_uniqueness_of :nombre
 end
