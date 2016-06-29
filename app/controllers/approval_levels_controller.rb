@@ -58,25 +58,35 @@ class ApprovalLevelsController < ApplicationController
       render :new
     end
     
-    
-    
-     @users.each do |user|
-       puts "#{user.name} #{user.surname}"
-     end
-     @operations.each do |operation|
-       puts operation.nombre
-     end
-     puts "Nombre: #{@approval_level.nombre}, Descripción: #{@approval_level.descripcion}, Paralelo: #{@approval_level.paralelo}, Aprobado: #{@approval_level.aprobado}"
+    # @users.each do |user|
+    #   puts "#{user.name} #{user.surname}"
+    # end
+    # @operations.each do |operation|
+    #   puts operation.nombre
+    # end
+    # puts "Nombre: #{@approval_level.nombre}, Descripción: #{@approval_level.descripcion}, Paralelo: #{@approval_level.paralelo}, Aprobado: #{@approval_level.aprobado}"
     
     # redirect_to approval_levels_path
   end
 
   def edit
   end
+  
+  def update
+    @approval_level = ApprovalLevel.find(params[:id])
+    
+    if @approval_level.update_attributes(aprobado: true)
+      flash[:success] = "¡Operación Aprobada!"
+      redirect_to approval_levels_path
+    else
+      render :index
+    end
+  end
 
   def show
   end
 
   def index
+    @operations = Operation.all
   end
 end

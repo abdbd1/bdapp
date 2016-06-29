@@ -24,23 +24,54 @@
     <div class="row quick-regular white">
       <div class="col-xs-4 col-xs-offset-1 left-col">
         <% if current_user.signatory %>
+          <% i = 0 %>
           <h2 align="center">Firmas Pendientes</h2>
           <% current_user.signers.each do |signer| %>
-            <h3>
-              <%#= signer.approval_level.nombre %>
-              <a class="no-decoration white" data-toggle="collapse" href="#approval<%= signer.approval_level.id %>" aria-expanded="false" aria-controls="approval<%= signer.approval_level.id %>">
-                <%= signer.approval_level.nombre %>
-              </a>
-              <div class="collapse" id="approval<%= signer.approval_level.id %>">
-                <div class="well black">
-                  <%= signer.approval_level.descripcion %>
-                  <button class="btn btn-primary">
-                    Aprobar
-                  </button>
-                  <%= button_to "Aprobar", "#" %>
+            <% if signer.approval_level.aprobado == false %>
+              <% user_ope_levels = [] %>
+              <% @operations.each do |operation| %>
+                <% operation.ope_levels.each do |ope_level| %>
+                  <% if ope_level.approval_level_id == signer.approval_level.id %>
+                    <% user_ope_levels << ope_level %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <h3>
+                <a class="no-decoration white" data-toggle="collapse" href="#approval<%= signer.id %>" aria-expanded="false" aria-controls="approval<%= signer.approval_level.id %>">
+                  <%= signer.approval_level.nombre %>
+                </a>
+                <div class="collapse" id="approval<%= signer.id %>">
+                  <div class="well black">
+                    <%= signer.approval_level.descripcion %><br>
+                    <%= "Operación: #{user_ope_levels[i].operation.nombre}" %>
+                    <% i += 1 %>
+                    <%# user_ope_levels.each do |user_ope_level| %>
+                      <%# puts user_ope_level.operation.nombre %>
+                      <%# if user_ope_level.approval_level_id == signer.approval_level.id %>
+                      <%#= user_ope_level.operation.nombre %>
+                      <%# end %>
+                    <%# end %>
+                    <%= button_to "Aprobar", signer.approval_level, method: :put,
+                        class:'btn btn-success' %>
+                  </div>
                 </div>
-              </div>
-            </h3>
+              </h3>
+            <% end %>
+          <% end %>
+          <h2 align="center">Firmas Aprobadas</h2>
+          <% current_user.signers.each do |signer| %>
+            <% if signer.approval_level.aprobado %>
+              <h3>
+                <a class="no-decoration white" data-toggle="collapse" href="#approval<%= signer.id %>" aria-expanded="false" aria-controls="approval<%= signer.approval_level.id %>">
+                  <%= signer.approval_level.nombre %>
+                </a>
+                <div class="collapse" id="approval<%= signer.id %>">
+                  <div class="well black">
+                    <%= signer.approval_level.descripcion %>
+                  </div>
+                </div>
+              </h3>
+            <% end %>
           <% end %>
         <% end %>
       </div>
