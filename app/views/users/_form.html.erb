@@ -21,6 +21,24 @@
         <%= f.label :surname, 'Apellido', class: "white" %>
         <%= f.text_field :surname, class: "form-control" %>
       </div>
+      
+      <div class="form-group">
+        <%= f.label :birth, 'Fecha de Nacimiento', class: "white" %>
+        <%= f.date_field :birth, class: "form-control" %>
+      </div>
+      
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-6">
+            <%= f.radio_button :male, true, checked: true %>
+            <%= f.label :male_true, 'Masculino', class: "white" %>
+          </div>
+          <div class="col-xs-6">
+            <%= f.radio_button :male, false %>
+            <%= f.label :male_false, 'Femenino', class: "white" %>
+          </div>
+        </div>
+      </div>
     
       <div class="form-group">
         <%= f.label :email, class: "white" %>
@@ -48,19 +66,6 @@
         </div>
       <% end %>
       
-      <% if current_user %>
-        <% if current_user.counter == 1 %>
-          <%= f.hidden_field :counter, :value => 2 %>
-          <%= f.hidden_field :type, :value => 'Administrador' %>
-        <% elsif current_user.counter == 2 %>
-          <%= f.hidden_field :counter, :value => 3 %>
-          <%= f.hidden_field :type, :value => 'Secundario' %>
-        <% end %>
-      <% else %>
-        <%= f.hidden_field :counter, :value => 1 %>
-        <%= f.hidden_field :type, :value => 'Principal' %>
-      <% end %>
-      
       <% if @user.new_record? and current_user and current_user.counter < 3 %>
         <%= f.check_box :signatory %>
         <%= f.label :signatory, "Elegir como firmante", class: "white" %>
@@ -68,6 +73,7 @@
       
       <% unless current_user %>
         <%= f.hidden_field :signatory, value: true %>
+        <%= f.hidden_field :counter, value: 1 %>
       <% end %>
     
       <div class="actions">
@@ -81,16 +87,16 @@
         <% end %>
       </div>
     </div><!--col-xs-4-->
-    
-    <% unless @user.new_record? %>
-      <div align="center" class="col-xs-4 quick-regular white" style="margin-top: 400px;">
-        <h3>Cancelar mi Cuenta</h3>
-          <p>
-            Inconforme? <%= button_to "Cancelar mi Cuenta", registration_path(resource_name),
-                            data: { confirm: "¿Estás seguro de querer eliminar tu cuenta?" },
-                            method: :delete, class: "btn btn-danger" %>
-          </p>
-      </div>
-    <% end %>
+  <% end %>
+  
+  <% unless @user.new_record? %>
+    <div align="center" class="col-xs-4 quick-regular white" style="margin-top: 400px;">
+      <h3>Cancelar mi Cuenta</h3>
+        <p>
+          Inconforme? <%= button_to "Cancelar mi Cuenta", registration_path(resource_name),
+                          data: { confirm: "¿Estás seguro de querer eliminar tu cuenta?" },
+                          method: :delete, class: "btn btn-danger" %>
+        </p>
+    </div>
   <% end %>
 </div><!--row form-row background-transparent-->

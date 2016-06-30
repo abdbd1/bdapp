@@ -129,6 +129,7 @@ class OperationsController < ApplicationController
     @product1.saldo = @product1.saldo - @monto.to_f
     @product2.saldo = @product2.saldo + @monto.to_f
     
+    @audit.approved = true
     @audit.user = current_user
     
     if @product1.saldo >= 0

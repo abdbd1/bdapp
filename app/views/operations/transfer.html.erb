@@ -82,7 +82,7 @@
           
           <div class="form-group">
             <%= label_tag(:monto, "Monto", class: "white") %>
-            <%= number_field_tag(:monto, nil, step: 'any', class: "form-control") %>
+            <%= number_field_tag(:monto, nil, step: 'any', min: @operation.montomin, max: @operation.montomax, class: "form-control") %>
           </div>
           
           <div class="form-group">
@@ -91,7 +91,7 @@
           </div>
           
           <div class="form-group">
-            <%= label_tag(:fecha, "Fecha (DD/MM/AAAA)", class: "white") %>
+            <%= label_tag(:fecha, "Fecha (AAAA/MM/DD)", class: "white") %>
             <%= text_field_tag(:fecha, nil, value: Date.today, class: "form-control", readonly: true) %>
             <%#= datetime_field(:fecha, nil, value: Time.zone.now.to_datetime, class: "form-control", readonly: true) %>
           </div>

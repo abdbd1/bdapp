@@ -4,5 +4,5 @@ class Product < ActiveRecord::Base
   belongs_to :user
   
   has_many :ope_pros
-  has_many :operations, through: :ope_pros
+  has_many :operations, through: :ope_pros, dependent: :destroy
 end

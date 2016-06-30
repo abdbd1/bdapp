@@ -20,16 +20,16 @@ class User < ActiveRecord::Base
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
   
-  has_many :user_opes
+  has_many :user_opes, dependent: :destroy
   has_many :operations, through: :user_opes
   
-  has_many :otps
+  has_many :otps, dependent: :destroy
   
-  has_many :signers
+  has_many :signers, dependent: :destroy
   has_many :approval_levels, through: :signers
   
   has_many :audits
   has_many :operations, through: :audits
   
-  validates_presence_of :name, :surname
+  validates_presence_of :name, :surname, :birth
 end

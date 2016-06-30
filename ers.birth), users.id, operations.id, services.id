@@ -1,0 +1,8 @@
+ age |          nombre           |                       tipo                        |       email       | age |     nombre     
+-----+---------------------------+---------------------------------------------------+-------------------+-----+----------------
+     | PAGO DE CREDITO           | Transferencia a Terceros mismo Banco              | iijbari@gmail.com |     | Banca Internet
+     | transferencia mismo banco | Transferencia a Propio mismo Banco                | pablo@hotmail.com |     | Banca Internet
+     | pago                      | Pago de Tarjeta de Crédito mismo Banco a Terceros | pablo@hotmail.com |     | Banca Internet
+     | Pago TDC                  | Pago de Tarjeta de Crédito mismo Banco a Terceros | pablo@hotmail.com |     | Banca Internet
+(4 rows)
+
