@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  concepto: MyString
+  monto: 9.99
+  email: MyString
+  fecha: 2016-06-30
+  hora: 2016-06-30 01:59:19
+  user_id: 
+  operation_id: 
+
+two:
+  concepto: MyString
+  monto: 9.99
+  email: MyString
+  fecha: 2016-06-30
+  hora: 2016-06-30 01:59:19
+  user_id: 
+  operation_id: 

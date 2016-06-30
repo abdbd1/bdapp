@@ -92,7 +92,7 @@
           
           <div class="form-group">
             <%= label_tag(:fecha, "Fecha (DD/MM/AAAA)", class: "white") %>
-            <%= date_field(:fecha, nil, value: Date.today, class: "form-control", readonly: true) %>
+            <%= text_field_tag(:fecha, nil, value: Date.today, class: "form-control", readonly: true) %>
             <%#= datetime_field(:fecha, nil, value: Time.zone.now.to_datetime, class: "form-control", readonly: true) %>
           </div>
           
@@ -104,6 +104,9 @@
           <div class="form-group">
             <%= hidden_field_tag(:product1, nil, class: "form-control hidden1") %>
             <%= hidden_field_tag(:product2, nil, class: "form-control hidden2") %>
+            <%# unless current_user.counter == 1 %>
+            <%= hidden_field_tag(:operation, @operation.id) %>
+            <%# end %>
           </div>
         </div><!--col-xs-4 col-xs-offset-1-->
         
@@ -172,8 +175,17 @@
           <div class="panel panel-success" style="margin-top: 70px;">
             <div class="panel-heading" align="center">Estatus de la Operación</div>
             <div class="panel-body" align="center">
-              <% if @operation.ope_levels.first.approval_level.aprobado %>
+              <% if current_user.counter > 1 and @operation.ope_levels.first.approval_level.aprobado %>
                 <h3><%= "¡La operación #{@operation.nombre} ha sido aprobada!" %></h3>
+                <div class="row">
+                  <div class="col-xs-6 col-xs-offset-3">
+                    <br>
+                    <%= submit_tag "Transferir", class: "btn btn-primary btn-block transfer_btn" %>
+                    <br>
+                  </div>
+                </div>
+              <% elsif current_user.counter == 1 %>
+                <h3 align="center">No necesitas permiso para realizar operaciones.</h3>
                 <div class="row">
                   <div class="col-xs-6 col-xs-offset-3">
                     <br>

@@ -23,7 +23,12 @@
         <% if current_user.card %>
           <h3>
             Tarjeta de Coordenadas
-            <small> | Eliminar</small>
+            <small>
+              | <%= link_to "Eliminar", {:controller => "securities/cards",
+                    :action => 'destroy', :id => current_user.card.id}, method: :delete,
+                    data: { confirm: "¿Estás seguro de querer eliminar la Tarjeta de Coordenadas?" },
+                    class: "red" %>
+            </small>
           </h3>
         <% else %>
           <%= form_for @coordinate, :url => {:controller => "securities/coordinates",

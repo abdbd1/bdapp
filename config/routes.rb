@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   namespace :securities do
     get 'card' => 'cards#show'
     post 'create_coordinate' => 'coordinates#create'
+    #delete 'destroy' => 'cards/destroy'
+    resources :cards, only: [:destroy]
     
     get 'questions' => 'questions#index'
     

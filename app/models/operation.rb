@@ -15,4 +15,7 @@ class Operation < ActiveRecord::Base
   
   has_many :ope_levels, dependent: :destroy
   has_many :approval_levels, through: :ope_levels
+  
+  has_many :audits, dependent: :destroy
+  has_many :users, through: :audits
 end

@@ -28,5 +28,8 @@ class User < ActiveRecord::Base
   has_many :signers
   has_many :approval_levels, through: :signers
   
+  has_many :audits
+  has_many :operations, through: :audits
+  
   validates_presence_of :name, :surname
 end

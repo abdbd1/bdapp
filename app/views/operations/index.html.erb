@@ -16,10 +16,10 @@
           <h2><%= link_to 'Crear', new_operation_path, class: "no-decoration quick-regular white" %></h2>
           <h2><%= link_to 'Asignar a Roles', operation_allocation_path, class: "no-decoration quick-regular white" %></h2>
         <% end %>
-        <% if current_user.counter == 1 %>
-          <h2><%= link_to 'Realizar', new_transfer_path, class: "no-decoration quick-regular white" %></h2>
-          <h2><%= link_to 'Consulta', "#", class: "no-decoration quick-regular white" %></h2>
-        <% end %>
+        <%# if current_user.counter == 1 %>
+          <!--<h2><%#= link_to 'Realizar', new_transfer_path, class: "no-decoration quick-regular white" %></h2>
+          <h2><%#= link_to 'Consulta', "#", class: "no-decoration quick-regular white" %></h2>-->
+        <%# end %>
       </div>
       
       <div class="col-xs-5 col-xs-offset-1 right-col quick-regular white">

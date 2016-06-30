@@ -96,7 +96,7 @@ class OperationsController < ApplicationController
   end
   
   def transfering
-    
+    @audit = Audit.new
     
     params.each do |key, value|
       puts "Key: #{key}, Valor: #{value}"
@@ -106,23 +106,40 @@ class OperationsController < ApplicationController
         @product2 = Product.find(value)
       elsif key == "monto"
         @monto = value
+      elsif key == "concepto"
+        @audit.concepto = value
+      elsif key.include? "monto"
+        @audit.monto = value
+      elsif key == "email"
+        @audit.email = value
+      elsif key == "fecha"
+        @audit.fecha = value
+      elsif key == "hora"
+        @audit.hora = value
+      elsif key.include? "operation"
+        @audit.operation = Operation.find(value)
+        puts "Key: #{key}, Value::#{value}"
       end
     end
     
     @product1.saldo = @product1.saldo - @monto.to_f
     @product2.saldo = @product2.saldo + @monto.to_f
     
+    @audit.user = current_user
+    
     if @product1.saldo >= 0
       if @product1.save and @product2.save
+        @audit.save
         flash[:success] = "Se ha realizado la Operación."
         redirect_to operations_path
       end
     else
+      @audit.save
       flash[:danger] = "No se pudo realizar la Operación."
       redirect_to operations_path
     end
     
-    #render :transfer
+    #redirect_to operations_path
   end
   
   def destroy
