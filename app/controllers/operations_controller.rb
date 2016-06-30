@@ -6,9 +6,15 @@ class OperationsController < ApplicationController
   def create
     @operation = Operation.new(operation_params)
     @user_ope = UserOpe.new
+    @ope_ser = OpeSer.new
     
     @user_ope.operation = @operation
     @user_ope.user = current_user
+    
+    @ope_ser.operation = @operation
+    @ope_ser.service = Service.first
+    
+    @ope_ser.save
     
     if @operation.save and @user_ope.save
       flash[:success] = "Has creado una nueva Operación."
