@@ -71,6 +71,14 @@
         <%= f.label :signatory, "Elegir como firmante", class: "white" %>
       <% end %>
       
+      <% if current_user %>
+        <% if current_user.counter == 1 %>
+          <%= f.hidden_field :counter, value: 2 %>
+        <% elsif current_user.counter == 2 %>
+          <%= f.hidden_field :counter, value: 3 %>
+        <% end %>
+      <% end %>
+      
       <% unless current_user %>
         <%= f.hidden_field :signatory, value: true %>
         <%= f.hidden_field :counter, value: 1 %>
