@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630015919) do
+ActiveRecord::Schema.define(version: 20160630042014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 20160630015919) do
   add_index "ope_roles", ["operation_id"], name: "index_ope_roles_on_operation_id", using: :btree
   add_index "ope_roles", ["role_id"], name: "index_ope_roles_on_role_id", using: :btree
 
+  create_table "ope_sers", force: :cascade do |t|
+    t.integer  "operation_id"
+    t.integer  "service_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "ope_sers", ["operation_id"], name: "index_ope_sers_on_operation_id", using: :btree
+  add_index "ope_sers", ["service_id"], name: "index_ope_sers_on_service_id", using: :btree
+
   create_table "operations", force: :cascade do |t|
     t.string   "acronimo"
     t.string   "nombre"
@@ -162,6 +172,13 @@ ActiveRecord::Schema.define(version: 20160630015919) do
     t.string   "descripcion"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "acronimo"
+    t.string   "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "signers", force: :cascade do |t|
@@ -239,6 +256,8 @@ ActiveRecord::Schema.define(version: 20160630015919) do
   add_foreign_key "ope_roles", "accounts"
   add_foreign_key "ope_roles", "operations"
   add_foreign_key "ope_roles", "roles"
+  add_foreign_key "ope_sers", "operations"
+  add_foreign_key "ope_sers", "services"
   add_foreign_key "otps", "users"
   add_foreign_key "phones", "users"
   add_foreign_key "products", "users"

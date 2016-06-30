@@ -18,4 +18,7 @@ class Operation < ActiveRecord::Base
   
   has_many :audits, dependent: :destroy
   has_many :users, through: :audits
+  
+  has_many :ope_sers
+  has_many :services, through: :ope_sers
 end

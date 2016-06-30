@@ -99,17 +99,16 @@ class OperationsController < ApplicationController
     @audit = Audit.new
     
     params.each do |key, value|
-      puts "Key: #{key}, Valor: #{value}"
+      #puts "Key: #{key}, Valor: #{value}"
       if key == "product1"
         @product1 = Product.find(value)
       elsif key == "product2"
         @product2 = Product.find(value)
       elsif key == "monto"
         @monto = value
+        @audit.monto = value.to_f
       elsif key == "concepto"
         @audit.concepto = value
-      elsif key.include? "monto"
-        @audit.monto = value
       elsif key == "email"
         @audit.email = value
       elsif key == "fecha"
@@ -118,7 +117,6 @@ class OperationsController < ApplicationController
         @audit.hora = value
       elsif key.include? "operation"
         @audit.operation = Operation.find(value)
-        puts "Key: #{key}, Value::#{value}"
       end
     end
     

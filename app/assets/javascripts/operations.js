@@ -22,7 +22,7 @@ $(document).ready(function () {
     $('.hidden1').attr("value",$('.drop_button').attr("value"));
     $('.hidden2').attr("value",$('.drop_button2').attr("value"));
     
-    alert("hidden1:" + $('.hidden1').attr("value"));
+    //alert("hidden1:" + $('.hidden1').attr("value"));
     //alert("drop_button:" + $('.drop_button').val());
   });
 });

@@ -15,11 +15,11 @@
         <h2 align="center">
           Gestione sus Claves
         </h2>
-        <% if current_user.user_ques %>
-          <h3><%= link_to 'Preguntas Secretas', securities_questions_path, class: "no-decoration white" %></h3>
-        <% else %>
+        <%# if current_user.user_ques %>
+          <!--<h3><%#= link_to 'Preguntas Secretas', securities_questions_path, class: "no-decoration white" %></h3>-->
+        <%# else %>
           <h3><%= link_to 'Preguntas Secretas', securities_new_answers_path, class: "no-decoration white" %></h3>
-        <% end %>
+        <%# end %>
         <% if current_user.card %>
           <h3>
             Tarjeta de Coordenadas
