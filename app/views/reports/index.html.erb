@@ -58,6 +58,12 @@
             </div>
           <% end %>
         <% end %>
+        <% sql = "select users.email, users.name, users.surname, roles.nombre from user_roles, users, roles  where user_roles.user_id=users.id and roles.id=user_roles.role_id;" %>
+        <% records_array = ActiveRecord::Base.connection.execute(sql) %>
+        <%# records_array = User.connection.execute(sql) %>
+        <% puts records_array %>
+        <% records_array %>
+        <%#= "#{records_array.first.name} #{records_array.first.surname}" %>
       </div><!--col-xs-6 quick-regular white-->
     </div><!--row-->
     

@@ -175,15 +175,17 @@
           <div class="panel panel-success" style="margin-top: 70px;">
             <div class="panel-heading" align="center">Estatus de la Operación</div>
             <div class="panel-body" align="center">
-              <% if current_user.counter > 1 and @operation.ope_levels.first.approval_level.aprobado %>
-                <h3><%= "¡La operación #{@operation.nombre} ha sido aprobada!" %></h3>
-                <div class="row">
-                  <div class="col-xs-6 col-xs-offset-3">
-                    <br>
-                    <%= submit_tag "Transferir", class: "btn btn-primary btn-block transfer_btn" %>
-                    <br>
+              <% if current_user.counter > 1 and @operation.ope_levels.first %>
+                <% if @operation.ope_levels.first.approval_level.aprobado %>
+                  <h3><%= "¡La operación #{@operation.nombre} ha sido aprobada!" %></h3>
+                  <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3">
+                      <br>
+                      <%= submit_tag "Transferir", class: "btn btn-primary btn-block transfer_btn" %>
+                      <br>
+                    </div>
                   </div>
-                </div>
+                <% end %>
               <% elsif current_user.counter == 1 %>
                 <h3 align="center">No necesitas permiso para realizar operaciones.</h3>
                 <div class="row">
@@ -194,7 +196,7 @@
                   </div>
                 </div>
               <% else %>
-                <h3><%= "La operación #{@operation.nombre} ha sido rechazada." %></h3>
+                <h3><%= "La operación #{@operation.nombre} no ha sido aprobada." %></h3>
               <% end %>
             </div>
           </div><!--panel-->
