@@ -11,106 +11,173 @@
     </div><!--row-->
     
     <div class="row background-transparent">
-      <div class="col-xs-4 col-xs-offset-1">
-        <%#= collection_select(:product, :product_id, current_user.products, :id,
-            :nombre, {prompt: false}, {class: "form-control"}) %>
-        <div class="form-group">
-          <div class="dropdown" style="margin-top: 20px;">
-            <button class="btn btn-default dropdown-toggle" type="button" id="products" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Seleccione Cuenta a Debitar
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="products">
-              <li class="dropdown-header">Tus Productos</li>
-              <% current_user.products.each do |product| %>
-                <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
-              <% end %>
-              <% if current_user.counter < 3 %>
-                <li role="separator" class="divider"></li>
-                <% if current_user.counter == 1 %>
-                  <li class="dropdown-header">Productos de tus Administradores</li>
-                <% elsif current_user.counter == 2 %>
-                  <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
-                <% end %>
-                <% current_user.children.each do |user| %>
-                  <% user.products.each do |product| %>
-                    <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+      <%= form_tag(action: "transfering", method: "post") do %>
+      
+        <div class="col-xs-4 col-xs-offset-1">
+          <%#= collection_select(:product, :product_id, current_user.products, :id,
+              :nombre, {prompt: false}, {class: "form-control"}) %>
+          <div class="form-group">
+            <div class="dropdown" style="margin-top: 20px;" align="center">
+              <button class="btn btn-default dropdown-toggle drop_button" type="button" id="products" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Seleccione Cuenta a Debitar
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="products">
+                <li class="dropdown-header">Tus Productos</li>
+                <% current_user.products.each do |product| %>
+                  <% if product.tipo.downcase.include? "cuenta" %>
+                    <li><a class="product_option" href="#" value="<%= product.id %>"><%= "#{product.nombre} #{product.number}" %></a></li>
                   <% end %>
                 <% end %>
-                <% if current_user.counter == 1 %>
+                <% if current_user.counter < 3 %>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
-                  <% current_user.children.each do |admin| %>
-                    <% admin.children.each do |user| %>
-                      <% user.products.each do |product| %>
-                        <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                  <% if current_user.counter == 1 %>
+                    <li class="dropdown-header">Productos de tus Administradores</li>
+                  <% elsif current_user.counter == 2 %>
+                    <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
+                  <% end %>
+                  <% current_user.children.each do |user| %>
+                    <% user.products.each do |product| %>
+                      <% if product.tipo.downcase.include? "cuenta" %>
+                        <li><a value="<%= product.id %>" class="product_option" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <% if current_user.counter == 1 %>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
+                    <% current_user.children.each do |admin| %>
+                      <% admin.children.each do |user| %>
+                        <% user.products.each do |product| %>
+                          <% if product.tipo.downcase.include? "cuenta" %>
+                            <li><a value="<%= product.id %>" class="product_option" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                          <% end %>
+                        <% end %>
                       <% end %>
                     <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-              <% if current_user.counter > 1 %>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Productos de tu creador</li>
-                <% current_user.parent.products.each do |product| %>
-                  <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
-                <% end %>
-                <% if current_user.counter == 3 %>
+                <% if current_user.counter > 1 %>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Productos del Cliente</li>
-                  <% current_user.parent.parent.products.each do |product| %>
-                    <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                  <li class="dropdown-header">Productos de tu creador</li>
+                  <% current_user.parent.products.each do |product| %>
+                    <li><a value="<%= product.id %>" class="product_option" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                  <% end %>
+                  <% if current_user.counter == 3 %>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Productos del Cliente</li>
+                    <% current_user.parent.parent.products.each do |product| %>
+                      <li><a value="<%= product.id %>" class="product_option" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </ul>
-          </div><!--Dropdown-->
-        </div>
+              </ul>
+            </div><!--Dropdown-->
+          </div>
+          
+          <div class="form-group">
+            <%= label_tag(:concepto, "Concepto", class: "white") %>
+            <%= text_field_tag(:concepto, nil, class: "form-control") %>
+          </div>
+          
+          <div class="form-group">
+            <%= label_tag(:monto, "Monto", class: "white") %>
+            <%= number_field_tag(:monto, nil, step: 'any', class: "form-control") %>
+          </div>
+          
+          <div class="form-group">
+            <%= label_tag(:email, "Email", class: "white") %>
+            <%= text_field_tag(:email, nil, class: "form-control") %>
+          </div>
+          
+          <div class="form-group">
+            <%= label_tag(:fecha, "Fecha (DD/MM/AAAA)", class: "white") %>
+            <%= date_field(:fecha, nil, value: Date.today, class: "form-control", readonly: true) %>
+            <%#= datetime_field(:fecha, nil, value: Time.zone.now.to_datetime, class: "form-control", readonly: true) %>
+          </div>
+          
+          <div class="form-group">
+            <%= label_tag(:hora, "Hora (HH:MM:SS)", class: "white") %>
+            <%= text_field_tag(:hora, nil, value: "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}", class: "form-control", readonly: true) %>
+          </div>
+          
+          <div class="form-group">
+            <%= hidden_field_tag(:product1, nil, class: "form-control hidden1") %>
+            <%= hidden_field_tag(:product2, nil, class: "form-control hidden2") %>
+          </div>
+        </div><!--col-xs-4 col-xs-offset-1-->
         
-        <div class="form-group">
-          <%= label_tag(:concepto, "Concepto", class: "white") %>
-          <%= text_field_tag(:concepto, nil, class: "form-control") %>
-        </div>
-        
-        <div class="form-group">
-          <%= label_tag(:monto, "Monto", class: "white") %>
-          <%= number_field_tag(:monto, nil, step: 'any', class: "form-control") %>
-        </div>
-        
-        <div class="form-group">
-          <%= label_tag(:email, "Email", class: "white") %>
-          <%= text_field_tag(:email, nil, class: "form-control") %>
-        </div>
-        
-        <div class="form-group">
-          <%= label_tag(:fecha, "Fecha (DD/MM/AAAA)", class: "white") %>
-          <%= date_field(:fecha, nil, value: Date.today, class: "form-control", readonly: true) %>
-          <%#= datetime_field(:fecha, nil, value: Time.zone.now.to_datetime, class: "form-control", readonly: true) %>
-        </div>
-        
-        <div class="form-group">
-          <%= label_tag(:hora, "Hora (HH:MM:SS)", class: "white") %>
-          <%= text_field_tag(:hora, nil, value: "#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}", class: "form-control", readonly: true) %>
-        </div>
-      </div><!--col-xs-4 col-xs-offset-1-->
-      
-      <div class="col-xs-4 col-xs-offset-2">
-        <div class="form-group">
-          <div class="dropdown" style="margin-top: 20px;">
-            <button class="btn btn-default dropdown-toggle" type="button" id="products2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Seleccione Cuenta a Acreditar
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="products2">
-              <% @users.each do |user| %>
-                <% user.products.each do |product| %>
-                  <li><a href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+        <div class="col-xs-4 col-xs-offset-2">
+          <div class="form-group">
+            <div class="dropdown" style="margin-top: 20px;" align="center">
+              <button class="btn btn-default dropdown-toggle drop_button2" type="button" id="products2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Seleccione Cuenta a Acreditar
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="products2">
+                <li class="dropdown-header">Tus Productos</li>
+                <% current_user.products.each do |product| %>
+                  <li><a class="product_option2" href="#" value="<%= product.id %>"><%= "#{product.nombre} #{product.number}" %></a></li>
                 <% end %>
-              <% end %>
-            </ul>
-          </div><!--dropdown-->
-        </div>
-      </div><!--col-xs-4 col-xs-offset-2-->
+                <% if current_user.counter < 3 %>
+                  <li role="separator" class="divider"></li>
+                  <% if current_user.counter == 1 %>
+                    <li class="dropdown-header">Productos de tus Administradores</li>
+                  <% elsif current_user.counter == 2 %>
+                    <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
+                  <% end %>
+                  <% current_user.children.each do |user| %>
+                    <% user.products.each do |product| %>
+                      <li><a value="<%= product.id %>" class="product_option2" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                    <% end %>
+                  <% end %>
+                  <% if current_user.counter == 1 %>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Productos de tus Usuarios Secundarios</li>
+                    <% current_user.children.each do |admin| %>
+                      <% admin.children.each do |user| %>
+                        <% user.products.each do |product| %>
+                          <li><a value="<%= product.id %>" class="product_option2" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <% if current_user.counter > 1 %>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Productos de tu creador</li>
+                  <% current_user.parent.products.each do |product| %>
+                    <li><a value="<%= product.id %>" class="product_option2" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                  <% end %>
+                  <% if current_user.counter == 3 %>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Productos del Cliente</li>
+                    <% current_user.parent.parent.products.each do |product| %>
+                      <li><a value="<%= product.id %>" class="product_option2" href="#"><%= "#{product.nombre} #{product.number}" %></a></li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div><!--Dropdown-->
+          </div>
+          
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-xs-6 col-xs-offset-3">
+              <br>
+              <%= submit_tag "Transferir", class: "btn btn-default btn-block transfer_btn" %>
+              <br>
+            </div>
+          </div>
+          
+          <div class="panel panel-success">
+            <div class="panel-heading" align="center">Estatus de la Operación</div>
+            <div class="panel-body">
+              ¡Aprobado!
+            </div>
+          </div><!--panel-->
+        </div><!--col-xs-4 col-xs-offset-2-->
+      
+      <% end %>
     </div>
   </div>
 </div>

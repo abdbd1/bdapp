@@ -14,7 +14,7 @@
       <% i = 0 %>
       <div class="row quick-regular white form-row background-transparent" style="margin-bottom: 20px;">
         <div class="col-xs-4 col-xs-offset-1">
-          <% if current_user.counter == 1 %>
+          <% if current_user.counter < 3 %>
             <h2 align="center">Tus Operaciones</h2>
             <% current_user.user_opes.each do |user_ope| %>
               <h3>

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :approval_levels
   
   get 'new_transfer' => 'operations#transfer'
+  post 'transfering' => 'operations#transfering'
   
   get 'reports' => 'reports#index'
 

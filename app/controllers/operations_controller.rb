@@ -94,6 +94,14 @@ class OperationsController < ApplicationController
     @users = User.all
   end
   
+  def transfering
+    params.each do |key, value|
+      puts "Key: #{key}, Valor: #{value}"
+    end
+    
+    render :transfer
+  end
+  
   def destroy
     flash[:danger] = "Se ha eliminado la Operación."
     Operation.find(params[:id]).destroy
@@ -106,4 +114,23 @@ class OperationsController < ApplicationController
       params.require(:operation).permit(:acronimo, :nombre, :montomax, :montomin,
                                         :tipo, :natural)
     end
+    
+    def role_operations(current_user_role)
+      operations = []
+      i = 0
+      
+      Operation.all.each do |operation|
+        operation.ope_roles.each do |ope_role|
+          if ope_role.role_id == current_user_role.id
+            operations[i] = Operation.new
+            operations[i] = operation
+            i += 1
+          end
+        end
+      end
+      
+      operations
+    end
+    
+    helper_method :role_operations
 end

@@ -16,17 +16,38 @@
           <h2><%= link_to 'Crear', new_operation_path, class: "no-decoration quick-regular white" %></h2>
           <h2><%= link_to 'Asignar a Roles', operation_allocation_path, class: "no-decoration quick-regular white" %></h2>
         <% end %>
-        <%# if current_user.counter == 1 %>
-        <h2><%#= link_to 'Realizar', new_transfer_path, class: "no-decoration quick-regular white" %></h2>
-        <h2><%#= link_to 'Consulta', "#", class: "no-decoration quick-regular white" %></h2>
+        <% if current_user.counter == 1 %>
+          <h2><%= link_to 'Realizar', new_transfer_path, class: "no-decoration quick-regular white" %></h2>
+          <h2><%= link_to 'Consulta', "#", class: "no-decoration quick-regular white" %></h2>
+        <% end %>
       </div>
       
       <div class="col-xs-5 col-xs-offset-1 right-col quick-regular white">
-        <% if current_user.counter < 3 %>
-          <h2 align="center">Tus Operaciones</h2>
+        <% if current_user.counter < 4 %>
+          <h2 align="center">Tus Operaciones según tu Rol</h2>
+          <% current_user.user_roles.each do |user_role| %><!--Muestra las operaciones que pertenecen al rol del usuario-->
+            <% role_operations(user_role.role).each do |operation| %>
+              <h3>
+                <% if (operation.tipo.downcase.include? "transferencia" or operation.tipo.downcase.include? "pago") and (current_user.counter == 1 or user_role.asignado) %>
+                  <%= link_to operation.nombre, new_transfer_path, class: "no-decoration white" %>
+                <% else %>
+                  <%= link_to operation.nombre, "#", class: "no-decoration white" %>
+                <% end %>
+                <!--<small>-->
+                <!--  | <%#= link_to "Editar", edit_operation_path(operation), class: "yellow" %>-->
+                <!--  | <%#= link_to "Eliminar", operation, method: :delete,-->
+                <!--        data: { confirm: "¿Estás seguro de querer eliminar la Operación?" },-->
+                <!--        class: "red" %>-->
+                <!--</small>-->
+              </h3>
+            <% end %>
+          <% end %>
+          
+          <h2 align="center">Tus Operaciones Creadas</h2>
           <% current_user.user_opes.each do |user_ope| %>
             <h3>
-              <%= link_to user_ope.operation.nombre, "#", class: "no-decoration white" %>
+              <%#= link_to user_ope.operation.nombre, "#", class: "no-decoration white" %>
+              <%= user_ope.operation.nombre %>
               <small>
                 | <%= link_to "Editar", edit_operation_path(user_ope.operation), class: "yellow" %>
                 | <%= link_to "Eliminar", user_ope.operation, method: :delete,

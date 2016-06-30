@@ -43,7 +43,9 @@
                 <div class="collapse" id="approval<%= signer.id %>">
                   <div class="well black">
                     <%= signer.approval_level.descripcion %><br>
-                    <%= "Operación: #{user_ope_levels[i].operation.nombre}" %>
+                    <% if user_ope_levels[i] %>
+                      <%= "Operación: #{user_ope_levels[i].operation.nombre}" %>
+                    <% end %>
                     <% i += 1 %>
                     <%# user_ope_levels.each do |user_ope_level| %>
                       <%# puts user_ope_level.operation.nombre %>
