@@ -29,7 +29,7 @@
             <% role_operations(user_role.role).each do |operation| %>
               <h3>
                 <% if (operation.tipo.downcase.include? "transferencia" or operation.tipo.downcase.include? "pago") and (current_user.counter == 1 or user_role.asignado) %>
-                  <%= link_to operation.nombre, new_transfer_path, class: "no-decoration white" %>
+                  <%= link_to operation.nombre, {controller: "operations", action: "transfer", operation: operation.id}, class: "no-decoration white" %>
                 <% else %>
                   <%= link_to operation.nombre, "#", class: "no-decoration white" %>
                 <% end %>

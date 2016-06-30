@@ -161,22 +161,32 @@
             </div><!--Dropdown-->
           </div>
           
-          <div class="row" style="margin-top: 20px;">
-            <div class="col-xs-6 col-xs-offset-3">
-              <br>
-              <%= submit_tag "Transferir", class: "btn btn-default btn-block transfer_btn" %>
-              <br>
-            </div>
-          </div>
+          <!--<div class="row" style="margin-top: 150px;">-->
+          <!--  <div class="col-xs-6 col-xs-offset-3">-->
+          <!--    <br>-->
+          <!--    <%#= submit_tag "Transferir", class: "btn btn-default btn-block transfer_btn" %>-->
+          <!--    <br>-->
+          <!--  </div>-->
+          <!--</div>-->
           
-          <div class="panel panel-success">
+          <div class="panel panel-success" style="margin-top: 70px;">
             <div class="panel-heading" align="center">Estatus de la Operación</div>
-            <div class="panel-body">
-              ¡Aprobado!
+            <div class="panel-body" align="center">
+              <% if @operation.ope_levels.first.approval_level.aprobado %>
+                <h3><%= "¡La operación #{@operation.nombre} ha sido aprobada!" %></h3>
+                <div class="row">
+                  <div class="col-xs-6 col-xs-offset-3">
+                    <br>
+                    <%= submit_tag "Transferir", class: "btn btn-primary btn-block transfer_btn" %>
+                    <br>
+                  </div>
+                </div>
+              <% else %>
+                <h3><%= "La operación #{@operation.nombre} ha sido rechazada." %></h3>
+              <% end %>
             </div>
           </div><!--panel-->
         </div><!--col-xs-4 col-xs-offset-2-->
-      
       <% end %>
     </div>
   </div>

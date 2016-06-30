@@ -92,14 +92,37 @@ class OperationsController < ApplicationController
   
   def transfer
     @users = User.all
+    @operation = Operation.find(params[:operation])
   end
   
   def transfering
+    
+    
     params.each do |key, value|
       puts "Key: #{key}, Valor: #{value}"
+      if key == "product1"
+        @product1 = Product.find(value)
+      elsif key == "product2"
+        @product2 = Product.find(value)
+      elsif key == "monto"
+        @monto = value
+      end
     end
     
-    render :transfer
+    @product1.saldo = @product1.saldo - @monto.to_f
+    @product2.saldo = @product2.saldo + @monto.to_f
+    
+    if @product1.saldo >= 0
+      if @product1.save and @product2.save
+        flash[:success] = "Se ha realizado la Operación."
+        redirect_to operations_path
+      end
+    else
+      flash[:danger] = "No se pudo realizar la Operación."
+      redirect_to operations_path
+    end
+    
+    #render :transfer
   end
   
   def destroy
